@@ -1,118 +1,230 @@
-/* =====================================================
+/* =========================================================
    90s KIDS VIBE
-   MP3 + YOUTUBE MUSIC PLAYER
-===================================================== */
+   2000–2015 MUSIC PLAYER
+   MP3 + YOUTUBE
+========================================================= */
 
 
-/* =====================================================
+/* =========================================================
    SONG DATABASE
-=====================================================
-
-   For MP3:
-   type: "mp3"
-   file: "music/song.mp3"
-
-   For YouTube:
-   type: "youtube"
-   youtubeId: "YOUR_VIDEO_ID"
-
-===================================================== */
-
+========================================================= */
 
 const songs = [
 
-    /* =========================
-       YOUR MP3 SONGS
-    ========================= */
+    /* =======================
+       2000
+    ======================= */
 
-    {
-        id: 1,
-        title: "My MP3 Song",
-        artist: "My Artist",
-        playlist: "90s",
-        type: "mp3",
-        file: "music/song1.mp3",
-        cover: "covers/song1.jpg"
-    },
-
-    {
-        id: 2,
-        title: "Another MP3",
-        artist: "My Artist",
-        playlist: "90s",
-        type: "mp3",
-        file: "music/song2.mp3",
-        cover: "covers/song2.jpg"
-    },
+    {id:1,title:"Oops!... I Did It Again",artist:"Britney Spears",year:2000,type:"youtube",youtubeId:""},
+    {id:2,title:"It's Gonna Be Me",artist:"NSYNC",year:2000,type:"youtube",youtubeId:""},
+    {id:3,title:"Bye Bye Bye",artist:"NSYNC",year:2000,type:"youtube",youtubeId:""},
+    {id:4,title:"Music",artist:"Madonna",year:2000,type:"youtube",youtubeId:""},
+    {id:5,title:"Stan",artist:"Eminem",year:2000,type:"youtube",youtubeId:""},
+    {id:6,title:"The Real Slim Shady",artist:"Eminem",year:2000,type:"youtube",youtubeId:""},
+    {id:7,title:"Shape of My Heart",artist:"Backstreet Boys",year:2000,type:"youtube",youtubeId:""},
 
 
-    /* =========================
-       YOUTUBE SONG 1
-    ========================= */
+    /* =======================
+       2001
+    ======================= */
 
-    {
-        id: 3,
-        title: "YouTube Song 1",
-        artist: "Artist 1",
-        playlist: "90s",
-        type: "youtube",
-        youtubeId: "VIDEO_ID_1",
-        cover: "https://img.youtube.com/vi/VIDEO_ID_1/hqdefault.jpg"
-    },
+    {id:8,title:"Hero",artist:"Enrique Iglesias",year:2001,type:"youtube",youtubeId:""},
+    {id:9,title:"Whenever, Wherever",artist:"Shakira",year:2001,type:"youtube",youtubeId:""},
+    {id:10,title:"Fallin'",artist:"Alicia Keys",year:2001,type:"youtube",youtubeId:""},
+    {id:11,title:"Can't Get You Out of My Head",artist:"Kylie Minogue",year:2001,type:"youtube",youtubeId:""},
+    {id:12,title:"All for You",artist:"Janet Jackson",year:2001,type:"youtube",youtubeId:""},
+    {id:13,title:"In the End",artist:"Linkin Park",year:2001,type:"youtube",youtubeId:""},
+    {id:14,title:"Dilemma",artist:"Nelly ft. Kelly Rowland",year:2002,type:"youtube",youtubeId:""},
 
 
-    /* =========================
-       YOUTUBE SONG 2
-    ========================= */
+    /* =======================
+       2002
+    ======================= */
 
-    {
-        id: 4,
-        title: "YouTube Song 2",
-        artist: "Artist 2",
-        playlist: "90s",
-        type: "youtube",
-        youtubeId: "VIDEO_ID_2",
-        cover: "https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg"
-    },
+    {id:15,title:"Lose Yourself",artist:"Eminem",year:2002,type:"youtube",youtubeId:""},
+    {id:16,title:"In Da Club",artist:"50 Cent",year:2003,type:"youtube",youtubeId:""},
+    {id:17,title:"A Thousand Miles",artist:"Vanessa Carlton",year:2002,type:"youtube",youtubeId:""},
+    {id:18,title:"Complicated",artist:"Avril Lavigne",year:2002,type:"youtube",youtubeId:""},
+    {id:19,title:"Sk8er Boi",artist:"Avril Lavigne",year:2002,type:"youtube",youtubeId:""},
+    {id:20,title:"Whenever Wherever",artist:"Shakira",year:2002,type:"youtube",youtubeId:""},
+    {id:21,title:"Whenever You Call",artist:"Mariah Carey",year:2002,type:"youtube",youtubeId:""},
 
 
-    /* =========================
-       YOUTUBE SONG 3
-    ========================= */
+    /* =======================
+       2003
+    ======================= */
 
-    {
-        id: 5,
-        title: "YouTube Song 3",
-        artist: "Artist 3",
-        playlist: "Romantic",
-        type: "youtube",
-        youtubeId: "VIDEO_ID_3",
-        cover: "https://img.youtube.com/vi/VIDEO_ID_3/hqdefault.jpg"
-    },
+    {id:22,title:"Crazy in Love",artist:"Beyoncé",year:2003,type:"youtube",youtubeId:""},
+    {id:23,title:"Bring Me to Life",artist:"Evanescence",year:2003,type:"youtube",youtubeId:""},
+    {id:24,title:"Where Is the Love?",artist:"Black Eyed Peas",year:2003,type:"youtube",youtubeId:""},
+    {id:25,title:"Beautiful",artist:"Christina Aguilera",year:2003,type:"youtube",youtubeId:""},
+    {id:26,title:"Hey Ya!",artist:"Outkast",year:2003,type:"youtube",youtubeId:""},
+    {id:27,title:"Yeah!",artist:"Usher ft. Lil Jon & Ludacris",year:2004,type:"youtube",youtubeId:""},
+    {id:28,title:"Me Against the Music",artist:"Britney Spears",year:2003,type:"youtube",youtubeId:""},
 
 
-    /* =========================
-       YOUTUBE SONG 4
-    ========================= */
+    /* =======================
+       2004
+    ======================= */
 
-    {
-        id: 6,
-        title: "YouTube Song 4",
-        artist: "Artist 4",
-        playlist: "Romantic",
-        type: "youtube",
-        youtubeId: "VIDEO_ID_4",
-        cover: "https://img.youtube.com/vi/VIDEO_ID_4/hqdefault.jpg"
-    }
+    {id:29,title:"Numb",artist:"Linkin Park",year:2004,type:"youtube",youtubeId:""},
+    {id:30,title:"Toxic",artist:"Britney Spears",year:2004,type:"youtube",youtubeId:""},
+    {id:31,title:"My Immortal",artist:"Evanescence",year:2004,type:"youtube",youtubeId:""},
+    {id:32,title:"This Love",artist:"Maroon 5",year:2004,type:"youtube",youtubeId:""},
+    {id:33,title:"Take Me Out",artist:"Franz Ferdinand",year:2004,type:"youtube",youtubeId:""},
+    {id:34,title:"Nobody's Home",artist:"Avril Lavigne",year:2004,type:"youtube",youtubeId:""},
+    {id:35,title:"Yeah!",artist:"Usher",year:2004,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2005
+    ======================= */
+
+    {id:36,title:"Hollaback Girl",artist:"Gwen Stefani",year:2005,type:"youtube",youtubeId:""},
+    {id:37,title:"Don't Cha",artist:"The Pussycat Dolls",year:2005,type:"youtube",youtubeId:""},
+    {id:38,title:"We Belong Together",artist:"Mariah Carey",year:2005,type:"youtube",youtubeId:""},
+    {id:39,title:"You're Beautiful",artist:"James Blunt",year:2005,type:"youtube",youtubeId:""},
+    {id:40,title:"Bad Day",artist:"Daniel Powter",year:2005,type:"youtube",youtubeId:""},
+    {id:41,title:"Wake Me Up When September Ends",artist:"Green Day",year:2005,type:"youtube",youtubeId:""},
+    {id:42,title:"Don't Lie",artist:"Black Eyed Peas",year:2005,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2006
+    ======================= */
+
+    {id:43,title:"Hips Don't Lie",artist:"Shakira ft. Wyclef Jean",year:2006,type:"youtube",youtubeId:""},
+    {id:44,title:"Promiscuous",artist:"Nelly Furtado",year:2006,type:"youtube",youtubeId:""},
+    {id:45,title:"SexyBack",artist:"Justin Timberlake",year:2006,type:"youtube",youtubeId:""},
+    {id:46,title:"Smack That",artist:"Akon ft. Eminem",year:2006,type:"youtube",youtubeId:""},
+    {id:47,title:"Unfaithful",artist:"Rihanna",year:2006,type:"youtube",youtubeId:""},
+    {id:48,title:"Chasing Cars",artist:"Snow Patrol",year:2006,type:"youtube",youtubeId:""},
+    {id:49,title:"Crazy",artist:"Gnarls Barkley",year:2006,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2007
+    ======================= */
+
+    {id:50,title:"Umbrella",artist:"Rihanna ft. Jay-Z",year:2007,type:"youtube",youtubeId:""},
+    {id:51,title:"Bleeding Love",artist:"Leona Lewis",year:2007,type:"youtube",youtubeId:""},
+    {id:52,title:"Apologize",artist:"Timbaland ft. OneRepublic",year:2007,type:"youtube",youtubeId:""},
+    {id:53,title:"Beautiful Girls",artist:"Sean Kingston",year:2007,type:"youtube",youtubeId:""},
+    {id:54,title:"Big Girls Don't Cry",artist:"Fergie",year:2007,type:"youtube",youtubeId:""},
+    {id:55,title:"The Way I Are",artist:"Timbaland",year:2007,type:"youtube",youtubeId:""},
+    {id:56,title:"Aadat",artist:"Jal",year:2004,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2008
+    ======================= */
+
+    {id:57,title:"Low",artist:"Flo Rida ft. T-Pain",year:2008,type:"youtube",youtubeId:""},
+    {id:58,title:"I'm Yours",artist:"Jason Mraz",year:2008,type:"youtube",youtubeId:""},
+    {id:59,title:"Poker Face",artist:"Lady Gaga",year:2008,type:"youtube",youtubeId:""},
+    {id:60,title:"Just Dance",artist:"Lady Gaga",year:2008,type:"youtube",youtubeId:""},
+    {id:61,title:"Viva la Vida",artist:"Coldplay",year:2008,type:"youtube",youtubeId:""},
+    {id:62,title:"Disturbia",artist:"Rihanna",year:2008,type:"youtube",youtubeId:""},
+    {id:63,title:"I Kissed a Girl",artist:"Katy Perry",year:2008,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2009
+    ======================= */
+
+    {id:64,title:"I Gotta Feeling",artist:"Black Eyed Peas",year:2009,type:"youtube",youtubeId:""},
+    {id:65,title:"Tik Tok",artist:"Kesha",year:2009,type:"youtube",youtubeId:""},
+    {id:66,title:"Bad Romance",artist:"Lady Gaga",year:2009,type:"youtube",youtubeId:""},
+    {id:67,title:"Party in the USA",artist:"Miley Cyrus",year:2009,type:"youtube",youtubeId:""},
+    {id:68,title:"Fireflies",artist:"Owl City",year:2009,type:"youtube",youtubeId:""},
+    {id:69,title:"Sexy Bitch",artist:"David Guetta ft. Akon",year:2009,type:"youtube",youtubeId:""},
+    {id:70,title:"3",artist:"Britney Spears",year:2009,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2010
+    ======================= */
+
+    {id:71,title:"Just the Way You Are",artist:"Bruno Mars",year:2010,type:"youtube",youtubeId:""},
+    {id:72,title:"Grenade",artist:"Bruno Mars",year:2010,type:"youtube",youtubeId:""},
+    {id:73,title:"Teenage Dream",artist:"Katy Perry",year:2010,type:"youtube",youtubeId:""},
+    {id:74,title:"California Gurls",artist:"Katy Perry",year:2010,type:"youtube",youtubeId:""},
+    {id:75,title:"Love the Way You Lie",artist:"Eminem ft. Rihanna",year:2010,type:"youtube",youtubeId:""},
+    {id:76,title:"Only Girl in the World",artist:"Rihanna",year:2010,type:"youtube",youtubeId:""},
+    {id:77,title:"Dynamite",artist:"Taio Cruz",year:2010,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2011
+    ======================= */
+
+    {id:78,title:"Party Rock Anthem",artist:"LMFAO",year:2011,type:"youtube",youtubeId:""},
+    {id:79,title:"Give Me Everything",artist:"Pitbull",year:2011,type:"youtube",youtubeId:""},
+    {id:80,title:"Rolling in the Deep",artist:"Adele",year:2011,type:"youtube",youtubeId:""},
+    {id:81,title:"Someone Like You",artist:"Adele",year:2011,type:"youtube",youtubeId:""},
+    {id:82,title:"Moves Like Jagger",artist:"Maroon 5",year:2011,type:"youtube",youtubeId:""},
+    {id:83,title:"The Lazy Song",artist:"Bruno Mars",year:2011,type:"youtube",youtubeId:""},
+    {id:84,title:"Super Bass",artist:"Nicki Minaj",year:2011,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2012
+    ======================= */
+
+    {id:85,title:"Call Me Maybe",artist:"Carly Rae Jepsen",year:2012,type:"youtube",youtubeId:""},
+    {id:86,title:"We Are Never Ever Getting Back Together",artist:"Taylor Swift",year:2012,type:"youtube",youtubeId:""},
+    {id:87,title:"Gangnam Style",artist:"PSY",year:2012,type:"youtube",youtubeId:""},
+    {id:88,title:"Diamonds",artist:"Rihanna",year:2012,type:"youtube",youtubeId:""},
+    {id:89,title:"Starships",artist:"Nicki Minaj",year:2012,type:"youtube",youtubeId:""},
+    {id:90,title:"Locked Out of Heaven",artist:"Bruno Mars",year:2012,type:"youtube",youtubeId:""},
+    {id:91,title:"Whistle",artist:"Flo Rida",year:2012,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2013
+    ======================= */
+
+    {id:92,title:"Counting Stars",artist:"OneRepublic",year:2013,type:"youtube",youtubeId:""},
+    {id:93,title:"Get Lucky",artist:"Daft Punk",year:2013,type:"youtube",youtubeId:""},
+    {id:94,title:"Wake Me Up",artist:"Avicii",year:2013,type:"youtube",youtubeId:""},
+    {id:95,title:"Royals",artist:"Lorde",year:2013,type:"youtube",youtubeId:""},
+
+
+    /* =======================
+       2014–2015
+    ======================= */
+
+    {id:96,title:"Happy",artist:"Pharrell Williams",year:2014,type:"youtube",youtubeId:""},
+    {id:97,title:"All About That Bass",artist:"Meghan Trainor",year:2014,type:"youtube",youtubeId:""},
+    {id:98,title:"Uptown Funk",artist:"Mark Ronson ft. Bruno Mars",year:2014,type:"youtube",youtubeId:""},
+    {id:99,title:"See You Again",artist:"Wiz Khalifa ft. Charlie Puth",year:2015,type:"youtube",youtubeId:""},
+    {id:100,title:"Sugar",artist:"Maroon 5",year:2015,type:"youtube",youtubeId:""}
 
 ];
 
 
+/* =========================================================
+   PLAYER VARIABLES
+========================================================= */
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+let currentIndex = 0;
 
+let shuffle = true;
+
+let repeat = false;
+
+let youtubePlayer = null;
+
+let youtubeReady = false;
+
+let history = [];
+
+let historyPosition = -1;
+
+
+/* =========================================================
+   GET HTML ELEMENTS
+========================================================= */
 
 const audio =
     document.getElementById("audio");
@@ -162,40 +274,28 @@ const songList =
 const searchInput =
     document.getElementById("searchInput");
 
-const playlistTitle =
-    document.getElementById("playlistTitle");
-
 const youtubeContainer =
     document.getElementById("youtubeContainer");
 
-const closeYoutube =
-    document.getElementById("closeYoutube");
+
+/* =========================================================
+   YOUTUBE IFRAME API
+========================================================= */
+
+const youtubeScript =
+    document.createElement("script");
+
+youtubeScript.src =
+    "https://www.youtube.com/iframe_api";
+
+document.head.appendChild(
+    youtubeScript
+);
 
 
-
-/* =====================================================
-   PLAYER VARIABLES
-===================================================== */
-
-
-let currentIndex = 0;
-
-let currentPlaylist = [...songs];
-
-let shuffle = false;
-
-let repeat = false;
-
-let youtubePlayer = null;
-
-let youtubeReady = false;
-
-
-
-/* =====================================================
-   YOUTUBE API
-===================================================== */
-
+/* =========================================================
+   YOUTUBE API READY
+========================================================= */
 
 window.onYouTubeIframeAPIReady =
     function () {
@@ -227,14 +327,10 @@ window.onYouTubeIframeAPIReady =
                                 youtubeReady =
                                     true;
 
-                                youtubePlayer.setVolume(
-                                    volume.value * 100
-                                );
-
                             },
 
                         onStateChange:
-                            onYoutubeStateChange
+                            youtubeStateChange
 
                     }
 
@@ -244,67 +340,40 @@ window.onYouTubeIframeAPIReady =
     };
 
 
+/* =========================================================
+   DISPLAY SONG LIST
+========================================================= */
 
-/* =====================================================
-   DISPLAY SONGS
-===================================================== */
+function displaySongs(list = songs) {
 
-
-function showSongs(list = currentPlaylist) {
+    if (!songList) return;
 
     songList.innerHTML = "";
 
 
-    if (list.length === 0) {
-
-        songList.innerHTML =
-            "<p>No songs found.</p>";
-
-        return;
-
-    }
-
-
     list.forEach(song => {
 
-        const div =
+        const item =
             document.createElement("div");
 
-        div.className =
+
+        item.className =
             "song";
 
 
-        const sourceText =
-            song.type === "youtube"
-                ? "▶ YouTube"
-                : "🎵 MP3";
+        const cover =
+            song.youtubeId
+                ? `https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg`
+                : "";
 
 
-        let downloadButton = "";
-
-
-        if (song.type === "mp3") {
-
-            downloadButton = `
-                <button
-                    onclick="downloadSong(${song.id})">
-                    ⬇
-                </button>
-            `;
-
-        }
-
-
-        div.innerHTML = `
+        item.innerHTML = `
 
             <img
                 class="songCover"
-                src="${song.cover}"
-                onerror="
-                    this.src='https://placehold.co/100x100'
-                "
+                src="${cover}"
+                alt=""
             >
-
 
             <div class="songInfo">
 
@@ -314,52 +383,35 @@ function showSongs(list = currentPlaylist) {
 
                 <div class="songArtist">
                     ${song.artist}
+                    • ${song.year}
                 </div>
 
-                <span class="songSource">
-                    ${sourceText}
-                </span>
+                <div class="songSource">
+                    ▶ YouTube
+                </div>
 
             </div>
 
-
-            <div class="songButtons">
-
-                <button
-                    onclick="
-                        playSongById(${song.id})
-                    ">
-                    ▶
-                </button>
-
-                ${downloadButton}
-
-                <button
-                    onclick="
-                        favoriteSong(${song.id})
-                    ">
-                    ⭐
-                </button>
-
-            </div>
+            <button
+                onclick="playSong(${song.id})">
+                ▶
+            </button>
 
         `;
 
 
-        songList.appendChild(div);
+        songList.appendChild(item);
 
     });
 
 }
 
 
+/* =========================================================
+   PLAY SONG
+========================================================= */
 
-/* =====================================================
-   PLAY SONG BY ID
-===================================================== */
-
-
-function playSongById(id) {
+function playSong(id) {
 
     const index =
         songs.findIndex(
@@ -367,25 +419,26 @@ function playSongById(id) {
         );
 
 
-    if (index === -1) {
-
-        return;
-
-    }
+    if (index === -1) return;
 
 
-    currentIndex = index;
+    currentIndex =
+        index;
+
+
+    addToHistory(
+        currentIndex
+    );
+
 
     loadSong();
 
 }
 
 
-
-/* =====================================================
-   LOAD CURRENT SONG
-===================================================== */
-
+/* =========================================================
+   LOAD SONG
+========================================================= */
 
 function loadSong() {
 
@@ -393,276 +446,139 @@ function loadSong() {
         songs[currentIndex];
 
 
-    if (!song) {
+    if (!song) return;
+
+
+    if (playerTitle)
+        playerTitle.textContent =
+            song.title;
+
+
+    if (playerArtist)
+        playerArtist.textContent =
+            song.artist;
+
+
+    if (playerType)
+        playerType.textContent =
+            `▶ YouTube • ${song.year}`;
+
+
+    if (playerCover) {
+
+        if (song.youtubeId) {
+
+            playerCover.src =
+                `https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg`;
+
+        }
+
+    }
+
+
+    /*
+       YouTube ID missing
+    */
+
+    if (!song.youtubeId) {
+
+        alert(
+            `"${song.title}" needs a YouTube video ID.`
+        );
 
         return;
 
     }
 
 
-    playerTitle.textContent =
-        song.title;
+    /*
+       Show YouTube player
+    */
 
-    playerArtist.textContent =
-        song.artist;
-
-    playerCover.src =
-        song.cover;
-
-
-    progress.value = 0;
-
-    currentTime.textContent =
-        "0:00";
-
-    duration.textContent =
-        "0:00";
-
-
-    /* =========================
-       MP3
-    ========================= */
-
-    if (song.type === "mp3") {
-
-        youtubeContainer.style.display =
-            "none";
-
-
-        if (
-            youtubePlayer &&
-            youtubeReady
-        ) {
-
-            youtubePlayer.stopVideo();
-
-        }
-
-
-        audio.src =
-            song.file;
-
-        audio.volume =
-            volume.value;
-
-
-        audio.play()
-            .then(
-                function () {
-
-                    playBtn.textContent =
-                        "⏸";
-
-                }
-            )
-            .catch(
-                function () {
-
-                    playBtn.textContent =
-                        "▶";
-
-                }
-            );
-
-
-        playerType.textContent =
-            "🎵 MP3";
-
-    }
-
-
-    /* =========================
-       YOUTUBE
-    ========================= */
-
-    else if (
-        song.type === "youtube"
-    ) {
-
-        audio.pause();
-
-        audio.src = "";
-
+    if (youtubeContainer) {
 
         youtubeContainer.style.display =
             "block";
 
-
-        playerType.textContent =
-            "▶ YouTube";
+    }
 
 
-        if (
-            youtubePlayer &&
-            youtubeReady
-        ) {
+    /*
+       Load video
+    */
 
-            youtubePlayer.loadVideoById(
-                song.youtubeId
-            );
+    if (
+        youtubePlayer &&
+        youtubeReady
+    ) {
 
-        }
+        youtubePlayer.loadVideoById(
+            song.youtubeId
+        );
 
     }
 
 }
 
 
+/* =========================================================
+   ADD TO RANDOM HISTORY
+========================================================= */
 
-/* =====================================================
-   PLAY / PAUSE
-===================================================== */
+function addToHistory(index) {
 
-
-playBtn.addEventListener(
-    "click",
-    function () {
-
-        const song =
-            songs[currentIndex];
-
-
-        if (!song) {
-
-            return;
-
-        }
-
-
-        /* MP3 */
-
-        if (song.type === "mp3") {
-
-            if (audio.paused) {
-
-                audio.play();
-
-                playBtn.textContent =
-                    "⏸";
-
-            }
-
-            else {
-
-                audio.pause();
-
-                playBtn.textContent =
-                    "▶";
-
-            }
-
-        }
-
-
-        /* YOUTUBE */
-
-        else {
-
-            if (
-                youtubePlayer &&
-                youtubeReady
-            ) {
-
-                const state =
-                    youtubePlayer.getPlayerState();
-
-
-                if (
-                    state ===
-                    YT.PlayerState.PLAYING
-                ) {
-
-                    youtubePlayer.pauseVideo();
-
-                    playBtn.textContent =
-                        "▶";
-
-                }
-
-                else {
-
-                    youtubePlayer.playVideo();
-
-                    playBtn.textContent =
-                        "⏸";
-
-                }
-
-            }
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   NEXT SONG
-===================================================== */
-
-
-nextBtn.addEventListener(
-    "click",
-    nextSong
-);
-
-
-function nextSong() {
-
-    if (songs.length === 0) {
-
-        return;
-
-    }
-
-
-    /* RANDOM */
-
-    if (shuffle) {
-
-        let randomIndex;
-
-
-        do {
-
-            randomIndex =
-                Math.floor(
-                    Math.random() *
-                    songs.length
-                );
-
-        }
-
-        while (
-            songs.length > 1 &&
-            randomIndex === currentIndex
+    history =
+        history.slice(
+            0,
+            historyPosition + 1
         );
 
 
-        currentIndex =
-            randomIndex;
+    history.push(index);
+
+
+    historyPosition =
+        history.length - 1;
+
+}
+
+
+/* =========================================================
+   NEXT — RANDOM
+========================================================= */
+
+function nextSong() {
+
+    if (songs.length < 2)
+        return;
+
+
+    let nextIndex;
+
+
+    do {
+
+        nextIndex =
+            Math.floor(
+                Math.random() *
+                songs.length
+            );
 
     }
 
-
-    /* NORMAL NEXT */
-
-    else {
-
-        currentIndex++;
+    while (
+        nextIndex ===
+        currentIndex
+    );
 
 
-        if (
-            currentIndex >=
-            songs.length
-        ) {
+    currentIndex =
+        nextIndex;
 
-            currentIndex = 0;
 
-        }
-
-    }
+    addToHistory(
+        currentIndex
+    );
 
 
     loadSong();
@@ -670,283 +586,194 @@ function nextSong() {
 }
 
 
+/* =========================================================
+   PREVIOUS — PLAY HISTORY
+========================================================= */
 
-/* =====================================================
-   PREVIOUS SONG
-===================================================== */
+function previousSong() {
 
+    if (
+        historyPosition <= 0
+    ) {
 
-previousBtn.addEventListener(
-    "click",
-    function () {
-
-        if (songs.length === 0) {
-
-            return;
-
-        }
-
-
-        currentIndex--;
-
-
-        if (
-            currentIndex < 0
-        ) {
-
-            currentIndex =
-                songs.length - 1;
-
-        }
-
-
-        loadSong();
+        return;
 
     }
-);
 
 
+    historyPosition--;
 
-/* =====================================================
+
+    currentIndex =
+        history[
+            historyPosition
+        ];
+
+
+    loadSong();
+
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+if (nextBtn) {
+
+    nextBtn.addEventListener(
+        "click",
+        nextSong
+    );
+
+}
+
+
+/* =========================================================
+   PREVIOUS BUTTON
+========================================================= */
+
+if (previousBtn) {
+
+    previousBtn.addEventListener(
+        "click",
+        previousSong
+    );
+
+}
+
+
+/* =========================================================
+   PLAY / PAUSE
+========================================================= */
+
+if (playBtn) {
+
+    playBtn.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !youtubePlayer ||
+                !youtubeReady
+            )
+                return;
+
+
+            const state =
+                youtubePlayer.getPlayerState();
+
+
+            if (
+                state ===
+                YT.PlayerState.PLAYING
+            ) {
+
+                youtubePlayer.pauseVideo();
+
+                playBtn.textContent =
+                    "▶";
+
+            }
+
+            else {
+
+                youtubePlayer.playVideo();
+
+                playBtn.textContent =
+                    "⏸";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
    SHUFFLE
-===================================================== */
+========================================================= */
 
+if (shuffleBtn) {
 
-shuffleBtn.addEventListener(
-    "click",
-    function () {
+    shuffleBtn.addEventListener(
+        "click",
+        function () {
 
-        shuffle =
-            !shuffle;
+            shuffle =
+                !shuffle;
 
-
-        if (shuffle) {
 
             shuffleBtn.style.opacity =
-                "1";
-
-            shuffleBtn.style.transform =
-                "scale(1.15)";
-
-        }
-
-        else {
-
-            shuffleBtn.style.opacity =
-                "0.5";
-
-            shuffleBtn.style.transform =
-                "scale(1)";
+                shuffle
+                    ? "1"
+                    : "0.5";
 
         }
+    );
 
-    }
-);
+}
 
 
-
-/* =====================================================
+/* =========================================================
    REPEAT
-===================================================== */
+========================================================= */
+
+if (repeatBtn) {
+
+    repeatBtn.addEventListener(
+        "click",
+        function () {
+
+            repeat =
+                !repeat;
 
 
-repeatBtn.addEventListener(
-    "click",
-    function () {
-
-        repeat =
-            !repeat;
-
-
-        repeatBtn.style.opacity =
-            repeat
-                ? "1"
-                : "0.5";
-
-    }
-);
-
-
-
-/* =====================================================
-   MP3 TIME UPDATE
-===================================================== */
-
-
-audio.addEventListener(
-    "timeupdate",
-    function () {
-
-        if (!audio.duration) {
-
-            return;
+            repeatBtn.style.opacity =
+                repeat
+                    ? "1"
+                    : "0.5";
 
         }
+    );
+
+}
 
 
-        progress.value =
-            (
-                audio.currentTime /
-                audio.duration
-            ) * 100;
+/* =========================================================
+   YOUTUBE STATE
+========================================================= */
 
-
-        currentTime.textContent =
-            formatTime(
-                audio.currentTime
-            );
-
-    }
-);
-
-
-
-/* =====================================================
-   MP3 DURATION
-===================================================== */
-
-
-audio.addEventListener(
-    "loadedmetadata",
-    function () {
-
-        duration.textContent =
-            formatTime(
-                audio.duration
-            );
-
-    }
-);
-
-
-
-/* =====================================================
-   PROGRESS BAR
-===================================================== */
-
-
-progress.addEventListener(
-    "input",
-    function () {
-
-        const song =
-            songs[currentIndex];
-
-
-        if (
-            song &&
-            song.type === "mp3" &&
-            audio.duration
-        ) {
-
-            audio.currentTime =
-                (
-                    progress.value /
-                    100
-                ) *
-                audio.duration;
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   VOLUME
-===================================================== */
-
-
-volume.addEventListener(
-    "input",
-    function () {
-
-        audio.volume =
-            volume.value;
-
-
-        if (
-            youtubePlayer &&
-            youtubeReady
-        ) {
-
-            youtubePlayer.setVolume(
-                volume.value * 100
-            );
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   MP3 FINISHED
-===================================================== */
-
-
-audio.addEventListener(
-    "ended",
-    function () {
-
-        if (repeat) {
-
-            audio.currentTime =
-                0;
-
-
-            audio.play();
-
-        }
-
-        else {
-
-            nextSong();
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   YOUTUBE PLAYER EVENTS
-===================================================== */
-
-
-function onYoutubeStateChange(event) {
-
-
-    /* PLAYING */
+function youtubeStateChange(event) {
 
     if (
         event.data ===
         YT.PlayerState.PLAYING
     ) {
 
-        playBtn.textContent =
-            "⏸";
+        if (playBtn)
+            playBtn.textContent =
+                "⏸";
 
     }
 
-
-    /* PAUSED */
 
     if (
         event.data ===
         YT.PlayerState.PAUSED
     ) {
 
-        playBtn.textContent =
-            "▶";
+        if (playBtn)
+            playBtn.textContent =
+                "▶";
 
     }
 
 
-    /* ENDED */
+    /*
+       Song finished
+    */
 
     if (
         event.data ===
@@ -970,375 +797,91 @@ function onYoutubeStateChange(event) {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    SEARCH
-===================================================== */
+========================================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            const query =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
 
 
-searchInput.addEventListener(
-    "input",
-    function () {
-
-        const search =
-            searchInput.value
-                .toLowerCase()
-                .trim();
-
-
-        const filtered =
-            currentPlaylist.filter(
-                song => {
-
-                    return (
+            const results =
+                songs.filter(
+                    song =>
 
                         song.title
                             .toLowerCase()
-                            .includes(search)
+                            .includes(query)
 
                         ||
 
                         song.artist
                             .toLowerCase()
-                            .includes(search)
+                            .includes(query)
 
-                    );
+                        ||
 
-                }
-            );
+                        String(song.year)
+                            .includes(query)
 
-
-        showSongs(filtered);
-
-    }
-);
+                );
 
 
-
-/* =====================================================
-   PLAYLIST FILTER
-===================================================== */
-
-
-document
-    .querySelectorAll(
-        ".playlistBtn"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    const playlist =
-                        button.dataset.playlist;
-
-
-                    /* ALL */
-
-                    if (
-                        playlist ===
-                        "All"
-                    ) {
-
-                        currentPlaylist =
-                            [...songs];
-
-                        playlistTitle.textContent =
-                            "All Songs";
-
-                    }
-
-
-                    /* FAVORITES */
-
-                    else if (
-                        playlist ===
-                        "Favorites"
-                    ) {
-
-                        const favorites =
-                            JSON.parse(
-                                localStorage.getItem(
-                                    "favorites"
-                                ) || "[]"
-                            );
-
-
-                        currentPlaylist =
-                            songs.filter(
-                                song =>
-                                    favorites.includes(
-                                        song.id
-                                    )
-                            );
-
-
-                        playlistTitle.textContent =
-                            "Favorites";
-
-                    }
-
-
-                    /* NORMAL PLAYLIST */
-
-                    else {
-
-                        currentPlaylist =
-                            songs.filter(
-                                song =>
-                                    song.playlist ===
-                                    playlist
-                            );
-
-
-                        playlistTitle.textContent =
-                            playlist;
-
-                    }
-
-
-                    showSongs();
-
-                }
+            displaySongs(
+                results
             );
 
         }
     );
 
-
-
-/* =====================================================
-   FAVORITES
-===================================================== */
-
-
-function favoriteSong(id) {
-
-    let favorites =
-        JSON.parse(
-            localStorage.getItem(
-                "favorites"
-            ) || "[]"
-        );
-
-
-    if (
-        favorites.includes(id)
-    ) {
-
-        favorites =
-            favorites.filter(
-                item =>
-                    item !== id
-            );
-
-    }
-
-    else {
-
-        favorites.push(id);
-
-    }
-
-
-    localStorage.setItem(
-        "favorites",
-        JSON.stringify(
-            favorites
-        )
-    );
-
-
-    alert(
-        "Favorites updated"
-    );
-
 }
 
 
+/* =========================================================
+   VOLUME
+========================================================= */
 
-/* =====================================================
-   DOWNLOAD MP3
-===================================================== */
+if (volume) {
 
+    volume.addEventListener(
+        "input",
+        function () {
 
-async function downloadSong(id) {
+            if (
+                youtubePlayer &&
+                youtubeReady
+            ) {
 
-    const song =
-        songs.find(
-            song =>
-                song.id === id
-        );
+                youtubePlayer.setVolume(
+                    Number(volume.value) * 100
+                );
 
-
-    if (
-        !song ||
-        song.type !== "mp3"
-    ) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                song.file
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Download failed"
-            );
+            }
 
         }
-
-
-        const blob =
-            await response.blob();
-
-
-        const url =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            song.title +
-            ".mp3";
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        link.remove();
-
-
-        URL.revokeObjectURL(
-            url
-        );
-
-    }
-
-    catch (error) {
-
-        alert(
-            "Unable to download this MP3."
-        );
-
-
-        console.error(error);
-
-    }
-
-}
-
-
-
-/* =====================================================
-   FORMAT TIME
-===================================================== */
-
-
-function formatTime(seconds) {
-
-    if (
-        isNaN(seconds)
-    ) {
-
-        return "0:00";
-
-    }
-
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-
-    const secondsRemaining =
-        Math.floor(
-            seconds % 60
-        );
-
-
-    return (
-        minutes +
-        ":" +
-        secondsRemaining
-            .toString()
-            .padStart(
-                2,
-                "0"
-            )
     );
 
 }
 
 
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-/* =====================================================
-   CLOSE YOUTUBE
-===================================================== */
-
-
-closeYoutube.addEventListener(
-    "click",
-    function () {
-
-        youtubeContainer.style.display =
-            "none";
+displaySongs();
 
 
-        if (
-            youtubePlayer &&
-            youtubeReady
-        ) {
-
-            youtubePlayer.stopVideo();
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   START WEBSITE
-===================================================== */
-
-
-showSongs();
-
-
-/* =====================================================
+/* =========================================================
    SERVICE WORKER
-===================================================== */
-
+========================================================= */
 
 if (
     "serviceWorker" in navigator
