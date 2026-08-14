@@ -1,158 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>90s Kids Vibe</title>
+<title>90s Kids Vibe</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            margin: 0;
-            background: #111;
-            color: white;
-            font-family: Arial, sans-serif;
-            padding-bottom: 120px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        header {
-            padding: 18px;
-            background: #181818;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
+body {
+    margin: 0;
+    background: #0d0d0d;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-bottom: 160px;
+}
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
+header {
+    height: 70px;
+    background: #171717;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
 
-        .player {
-            background: #1c1c1c;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+.logo {
+    color: white;
+}
 
-        #youtubePlayer {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-        }
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 18px;
+}
 
-        .info {
-            padding: 15px 5px;
-        }
+.search {
+    width: 100%;
+    padding: 17px;
+    border-radius: 30px;
+    border: 1px solid #333;
+    background: #202020;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 20px;
+}
 
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.search::placeholder {
+    color: #888;
+}
 
-        .artist {
-            color: #aaa;
-            margin-top: 5px;
-        }
+.player {
+    background: #191919;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
+.now-playing {
+    text-align: center;
+    padding: 10px;
+}
 
-        button {
-            border: 0;
-            background: #333;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+.album {
+    width: 150px;
+    height: 150px;
+    background: #292929;
+    border-radius: 15px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+}
 
-        button:hover {
-            background: #444;
-        }
+.song-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+}
 
-        #playBtn {
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            padding: 0;
-            font-size: 20px;
-        }
+.song-artist {
+    color: #999;
+    margin-top: 6px;
+}
 
-        .song-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+.progress {
+    width: 100%;
+    margin-top: 20px;
+}
 
-        .song {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #1c1c1c;
-            padding: 12px;
-            border-radius: 10px;
-        }
+.time {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 12px;
+}
 
-        .song-info {
-            flex: 1;
-        }
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 15px;
+}
 
-        .song-title {
-            font-weight: bold;
-        }
+.controls button {
+    border: none;
+    background: #292929;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 19px;
+}
 
-        .song-artist {
-            color: #999;
-            font-size: 13px;
-            margin-top: 4px;
-        }
+.controls button:active {
+    transform: scale(.94);
+}
 
-        .search {
-            width: 100%;
-            padding: 13px;
-            border-radius: 8px;
-            border: 0;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
+#playBtn {
+    width: 62px;
+    height: 62px;
+    background: white;
+    color: black;
+    font-size: 25px;
+}
 
-        @media (max-width: 600px) {
+.volume {
+    width: 150px;
+    display: block;
+    margin: 20px auto 0;
+}
 
-            header {
-                font-size: 20px;
-            }
+h2 {
+    margin-top: 25px;
+}
 
-            .container {
-                padding: 12px;
-            }
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
 
-            .controls {
-                gap: 7px;
-            }
+.song {
+    background: #191919;
+    border-radius: 12px;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-            button {
-                padding: 10px 12px;
-            }
+.song-number {
+    width: 35px;
+    text-align: center;
+    color: #888;
+}
 
-        }
-    </style>
+.song-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.song-name {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-file {
+    color: #888;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.song button {
+    border: none;
+    background: #292929;
+    color: white;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+}
+
+.status {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+}
+
+@media(max-width:600px) {
+
+    header {
+        font-size: 20px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    .album {
+        width: 130px;
+        height: 130px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-    🎵 90s Kids Vibe
+    <div class="logo">🎵 90s Kids Vibe</div>
+    <div>☰</div>
 </header>
 
 <div class="container">
@@ -161,54 +232,78 @@
         id="search"
         class="search"
         type="text"
-        placeholder="Search songs..."
+        placeholder="Search songs, artists..."
     >
 
     <div class="player">
 
-        <div id="youtubePlayer"></div>
+        <div class="now-playing">
 
-        <div class="info">
+            <div class="album">
+                🎵
+            </div>
 
-            <div id="songTitle" class="title">
+            <div id="songTitle" class="song-title">
                 Select a song
             </div>
 
-            <div id="songArtist" class="artist">
-                YouTube Music
+            <div id="songArtist" class="song-artist">
+                90s Kids Vibe
             </div>
 
+        </div>
+
+        <audio id="audio"></audio>
+
+        <input
+            id="progress"
+            class="progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+        >
+
+        <div class="time">
+            <span id="currentTime">0:00</span>
+            <span id="duration">0:00</span>
         </div>
 
         <div class="controls">
 
-            <button id="previousBtn">
-                ⏮
-            </button>
+            <button id="shuffleBtn">🔀</button>
 
-            <button id="playBtn">
-                ▶
-            </button>
+            <button id="previousBtn">⏮</button>
 
-            <button id="nextBtn">
-                ⏭
-            </button>
+            <button id="playBtn">▶</button>
 
-            <button id="shuffleBtn">
-                🔀
-            </button>
+            <button id="nextBtn">⏭</button>
+
+            <button id="repeatBtn">🔁</button>
 
         </div>
 
+        <input
+            id="volume"
+            class="volume"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+        >
+
     </div>
 
+    <h2>🎵 All Songs</h2>
 
-    <h2>🎵 Music</h2>
+    <div id="status" class="status">
+        Loading music...
+    </div>
 
     <div id="songList" class="song-list"></div>
 
 </div>
-
 
 <script src="script.js"></script>
 
