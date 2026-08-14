@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
 
     margin: 0;
@@ -15,7 +16,8 @@ body {
         Helvetica,
         sans-serif;
 
-    padding-bottom: 180px;
+    padding-bottom: 190px;
+
 }
 
 
@@ -39,17 +41,20 @@ header {
 
     top: 0;
 
-    z-index: 10;
+    z-index: 50;
 
-    border-bottom: 1px solid #292929;
+    border-bottom:
+        1px solid #292929;
+
 }
 
 
 .logo {
 
-    font-size: 22px;
+    font-size: 21px;
 
     font-weight: bold;
+
 }
 
 
@@ -61,7 +66,8 @@ header {
 
     color: white;
 
-    font-size: 25px;
+    font-size: 24px;
+
 }
 
 
@@ -74,14 +80,16 @@ main {
     margin: auto;
 
     padding: 20px;
+
 }
 
 
 h2 {
 
-    margin-top: 30px;
+    margin-top: 28px;
 
-    font-size: 21px;
+    font-size: 20px;
+
 }
 
 
@@ -89,7 +97,8 @@ h2 {
 
 .searchBox {
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+
 }
 
 
@@ -110,12 +119,14 @@ h2 {
     font-size: 16px;
 
     outline: none;
+
 }
 
 
 #searchInput:focus {
 
     border-color: #777;
+
 }
 
 
@@ -129,7 +140,8 @@ h2 {
 
     overflow-x: auto;
 
-    padding-bottom: 5px;
+    padding-bottom: 8px;
+
 }
 
 
@@ -148,12 +160,14 @@ h2 {
     white-space: nowrap;
 
     cursor: pointer;
+
 }
 
 
 .playlistBtn:hover {
 
     background: #333;
+
 }
 
 
@@ -172,12 +186,14 @@ h2 {
     border-radius: 10px;
 
     margin-bottom: 5px;
+
 }
 
 
 .song:hover {
 
-    background: #1c1c1c;
+    background: #1b1b1b;
+
 }
 
 
@@ -187,9 +203,10 @@ h2 {
 
     height: 55px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     object-fit: cover;
+
 }
 
 
@@ -198,6 +215,7 @@ h2 {
     flex: 1;
 
     min-width: 0;
+
 }
 
 
@@ -210,6 +228,7 @@ h2 {
     overflow: hidden;
 
     text-overflow: ellipsis;
+
 }
 
 
@@ -220,6 +239,20 @@ h2 {
     font-size: 14px;
 
     margin-top: 4px;
+
+}
+
+
+.songSource {
+
+    display: inline-block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #aaa;
+
 }
 
 
@@ -228,6 +261,7 @@ h2 {
     display: flex;
 
     gap: 5px;
+
 }
 
 
@@ -241,17 +275,76 @@ h2 {
 
     border-radius: 50%;
 
-    width: 38px;
+    width: 36px;
 
-    height: 38px;
+    height: 36px;
 
     cursor: pointer;
+
 }
 
 
 .songButtons button:hover {
 
     background: #3a3a3a;
+
+}
+
+
+/* YOUTUBE */
+
+.youtubeContainer {
+
+    display: none;
+
+    position: fixed;
+
+    top: 75px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    max-width: 700px;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    z-index: 100;
+
+}
+
+
+#youtubePlayer {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+}
+
+
+.closeYoutube {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    background: #222;
+
+    color: white;
+
+    cursor: pointer;
+
 }
 
 
@@ -273,10 +366,11 @@ h2 {
 
     padding: 12px 20px;
 
-    z-index: 20;
+    z-index: 80;
 
     box-shadow:
-        0 -5px 20px rgba(0,0,0,.4);
+        0 -5px 20px rgba(0,0,0,.5);
+
 }
 
 
@@ -291,6 +385,7 @@ h2 {
     align-items: center;
 
     gap: 12px;
+
 }
 
 
@@ -302,7 +397,8 @@ h2 {
 
     object-fit: cover;
 
-    border-radius: 6px;
+    border-radius: 7px;
+
 }
 
 
@@ -311,16 +407,27 @@ h2 {
     margin: 0;
 
     font-size: 16px;
+
 }
 
 
 .playerInfo p {
 
-    margin: 4px 0 0;
+    margin: 4px 0;
 
     color: #999;
 
     font-size: 13px;
+
+}
+
+
+#playerType {
+
+    font-size: 11px;
+
+    color: #777;
+
 }
 
 
@@ -335,6 +442,7 @@ h2 {
     max-width: 700px;
 
     margin: 10px auto 0;
+
 }
 
 
@@ -342,7 +450,7 @@ h2 {
 
     max-width: 700px;
 
-    margin: 0 auto;
+    margin: auto;
 
     display: flex;
 
@@ -351,6 +459,7 @@ h2 {
     font-size: 11px;
 
     color: #999;
+
 }
 
 
@@ -367,6 +476,7 @@ h2 {
     gap: 15px;
 
     margin-top: 8px;
+
 }
 
 
@@ -381,6 +491,7 @@ h2 {
     font-size: 20px;
 
     cursor: pointer;
+
 }
 
 
@@ -397,6 +508,7 @@ h2 {
     color: black !important;
 
     font-size: 22px !important;
+
 }
 
 
@@ -413,12 +525,14 @@ h2 {
     gap: 8px;
 
     margin-top: 5px;
+
 }
 
 
 #volume {
 
     width: 100px;
+
 }
 
 
@@ -429,23 +543,37 @@ h2 {
     main {
 
         padding: 15px;
+
     }
+
 
     .songButtons button {
 
-        width: 34px;
+        width: 33px;
 
-        height: 34px;
+        height: 33px;
+
     }
+
 
     .player {
 
-        padding: 10px;
+        padding: 9px;
+
     }
+
 
     .controls {
 
-        gap: 10px;
+        gap: 9px;
+
+    }
+
+
+    .youtubeContainer {
+
+        width: 96%;
+
     }
 
 }
