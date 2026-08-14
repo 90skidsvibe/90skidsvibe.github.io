@@ -1,579 +1,1251 @@
-* {
-    box-sizing: border-box;
-}
+/* =====================================================
+   90s KIDS VIBE
+   MP3 + YOUTUBE MUSIC PLAYER
+===================================================== */
 
 
-body {
+/* =====================================================
+   YOUR SONG DATABASE
 
-    margin: 0;
+   type: "mp3"
+   OR
+   type: "youtube"
+===================================================== */
 
-    background: #0d0d0d;
 
-    color: white;
+const songs = [
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    /* YOUR UPLOADED MP3 */
 
-    padding-bottom: 190px;
+    {
+        id: 1,
 
-}
+        title: "My MP3 Song",
 
+        artist: "My Artist",
 
-/* HEADER */
+        playlist: "90s",
 
-header {
+        type: "mp3",
 
-    height: 65px;
+        file: "music/song1.mp3",
 
-    background: #151515;
+        cover: "covers/song1.jpg"
+    },
 
-    display: flex;
 
-    align-items: center;
+    /* YOUTUBE SONG */
 
-    justify-content: space-between;
+    {
+        id: 2,
 
-    padding: 0 20px;
+        title: "YouTube Song",
 
-    position: sticky;
+        artist: "YouTube Artist",
 
-    top: 0;
+        playlist: "90s",
 
-    z-index: 50;
+        type: "youtube",
 
-    border-bottom:
-        1px solid #292929;
+        youtubeId: "VIDEO_ID_HERE",
 
-}
+        cover: "https://img.youtube.com/vi/VIDEO_ID_HERE/hqdefault.jpg"
+    },
 
 
-.logo {
+    /* ANOTHER MP3 */
 
-    font-size: 21px;
+    {
+        id: 3,
 
-    font-weight: bold;
+        title: "Another MP3",
 
-}
+        artist: "My Artist",
 
+        playlist: "Romantic",
 
-#menuBtn {
+        type: "mp3",
 
-    background: none;
+        file: "music/song2.mp3",
 
-    border: none;
+        cover: "covers/song2.jpg"
+    },
 
-    color: white;
 
-    font-size: 24px;
+    /* ANOTHER YOUTUBE SONG */
 
-}
+    {
+        id: 4,
 
+        title: "Another YouTube Song",
 
-/* MAIN */
+        artist: "Artist",
 
-main {
+        playlist: "Romantic",
 
-    max-width: 900px;
+        type: "youtube",
 
-    margin: auto;
+        youtubeId: "VIDEO_ID_HERE",
 
-    padding: 20px;
+        cover: "https://img.youtube.com/vi/VIDEO_ID_HERE/hqdefault.jpg"
+    }
 
-}
+];
 
 
-h2 {
 
-    margin-top: 28px;
+/* =====================================================
+   VARIABLES
+===================================================== */
 
-    font-size: 20px;
 
-}
+const audio =
+    document.getElementById("audio");
 
 
-/* SEARCH */
+const playBtn =
+    document.getElementById("playBtn");
 
-.searchBox {
 
-    margin-bottom: 20px;
+const previousBtn =
+    document.getElementById("previousBtn");
 
-}
 
+const nextBtn =
+    document.getElementById("nextBtn");
 
-#searchInput {
 
-    width: 100%;
+const shuffleBtn =
+    document.getElementById("shuffleBtn");
 
-    padding: 15px 18px;
 
-    border-radius: 30px;
+const repeatBtn =
+    document.getElementById("repeatBtn");
 
-    border: 1px solid #333;
 
-    background: #1c1c1c;
+const progress =
+    document.getElementById("progress");
 
-    color: white;
 
-    font-size: 16px;
+const volume =
+    document.getElementById("volume");
 
-    outline: none;
 
-}
+const playerTitle =
+    document.getElementById("playerTitle");
 
 
-#searchInput:focus {
+const playerArtist =
+    document.getElementById("playerArtist");
 
-    border-color: #777;
 
-}
+const playerCover =
+    document.getElementById("playerCover");
 
 
-/* PLAYLISTS */
+const playerType =
+    document.getElementById("playerType");
 
-.playlistContainer {
 
-    display: flex;
+const currentTime =
+    document.getElementById("currentTime");
 
-    gap: 10px;
 
-    overflow-x: auto;
+const duration =
+    document.getElementById("duration");
 
-    padding-bottom: 8px;
 
-}
+const songList =
+    document.getElementById("songList");
 
 
-.playlistBtn {
+const searchInput =
+    document.getElementById("searchInput");
 
-    background: #222;
 
-    color: white;
+const playlistTitle =
+    document.getElementById("playlistTitle");
 
-    border: none;
 
-    border-radius: 25px;
+const youtubeContainer =
+    document.getElementById("youtubeContainer");
 
-    padding: 12px 18px;
 
-    white-space: nowrap;
+const closeYoutube =
+    document.getElementById("closeYoutube");
 
-    cursor: pointer;
 
-}
 
+let currentIndex = 0;
 
-.playlistBtn:hover {
 
-    background: #333;
+let currentPlaylist =
+    [...songs];
 
-}
 
+let shuffle = false;
 
-/* SONG */
 
-.song {
+let repeat = false;
 
-    display: flex;
 
-    align-items: center;
+let youtubePlayer = null;
 
-    gap: 12px;
 
-    padding: 10px;
+let youtubeReady = false;
 
-    border-radius: 10px;
 
-    margin-bottom: 5px;
 
-}
+/* =====================================================
+   YOUTUBE API
+===================================================== */
 
 
-.song:hover {
+window.onYouTubeIframeAPIReady =
+    function () {
 
-    background: #1b1b1b;
+        youtubePlayer =
+            new YT.Player(
+                "youtubePlayer",
+                {
 
-}
+                    height: "100%",
 
+                    width: "100%",
 
-.songCover {
+                    videoId: "",
 
-    width: 55px;
+                    playerVars: {
 
-    height: 55px;
+                        playsinline: 1,
 
-    border-radius: 7px;
+                        rel: 0
 
-    object-fit: cover;
+                    },
 
-}
+                    events: {
 
+                        onReady:
+                            function () {
 
-.songInfo {
+                                youtubeReady =
+                                    true;
 
-    flex: 1;
+                            },
 
-    min-width: 0;
+                        onStateChange:
+                            onYoutubeStateChange
 
-}
+                    }
 
+                }
+            );
 
-.songTitle {
+    };
 
-    font-weight: bold;
 
-    white-space: nowrap;
 
-    overflow: hidden;
+/* =====================================================
+   DISPLAY SONGS
+===================================================== */
 
-    text-overflow: ellipsis;
 
-}
+function showSongs(list = currentPlaylist) {
 
+    songList.innerHTML = "";
 
-.songArtist {
 
-    color: #999;
+    if (list.length === 0) {
 
-    font-size: 14px;
+        songList.innerHTML =
+            "<p>No songs found.</p>";
 
-    margin-top: 4px;
-
-}
-
-
-.songSource {
-
-    display: inline-block;
-
-    margin-top: 4px;
-
-    font-size: 11px;
-
-    color: #aaa;
-
-}
-
-
-.songButtons {
-
-    display: flex;
-
-    gap: 5px;
-
-}
-
-
-.songButtons button {
-
-    border: none;
-
-    background: #252525;
-
-    color: white;
-
-    border-radius: 50%;
-
-    width: 36px;
-
-    height: 36px;
-
-    cursor: pointer;
-
-}
-
-
-.songButtons button:hover {
-
-    background: #3a3a3a;
-
-}
-
-
-/* YOUTUBE */
-
-.youtubeContainer {
-
-    display: none;
-
-    position: fixed;
-
-    top: 75px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 90%;
-
-    max-width: 700px;
-
-    background: #111;
-
-    border: 1px solid #333;
-
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    z-index: 100;
-
-}
-
-
-#youtubePlayer {
-
-    width: 100%;
-
-    aspect-ratio: 16 / 9;
-
-}
-
-
-.closeYoutube {
-
-    width: 100%;
-
-    padding: 12px;
-
-    border: none;
-
-    background: #222;
-
-    color: white;
-
-    cursor: pointer;
-
-}
-
-
-/* PLAYER */
-
-.player {
-
-    position: fixed;
-
-    bottom: 0;
-
-    left: 0;
-
-    right: 0;
-
-    background: #171717;
-
-    border-top: 1px solid #333;
-
-    padding: 12px 20px;
-
-    z-index: 80;
-
-    box-shadow:
-        0 -5px 20px rgba(0,0,0,.5);
-
-}
-
-
-.playerInfo {
-
-    max-width: 700px;
-
-    margin: auto;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-}
-
-
-#playerCover {
-
-    width: 55px;
-
-    height: 55px;
-
-    object-fit: cover;
-
-    border-radius: 7px;
-
-}
-
-
-.playerInfo h3 {
-
-    margin: 0;
-
-    font-size: 16px;
-
-}
-
-
-.playerInfo p {
-
-    margin: 4px 0;
-
-    color: #999;
-
-    font-size: 13px;
-
-}
-
-
-#playerType {
-
-    font-size: 11px;
-
-    color: #777;
-
-}
-
-
-/* PROGRESS */
-
-#progress {
-
-    display: block;
-
-    width: 100%;
-
-    max-width: 700px;
-
-    margin: 10px auto 0;
-
-}
-
-
-.time {
-
-    max-width: 700px;
-
-    margin: auto;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    font-size: 11px;
-
-    color: #999;
-
-}
-
-
-/* CONTROLS */
-
-.controls {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 15px;
-
-    margin-top: 8px;
-
-}
-
-
-.controls button {
-
-    background: none;
-
-    border: none;
-
-    color: white;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-}
-
-
-.playButton {
-
-    width: 48px;
-
-    height: 48px;
-
-    border-radius: 50%;
-
-    background: white !important;
-
-    color: black !important;
-
-    font-size: 22px !important;
-
-}
-
-
-/* VOLUME */
-
-.volume {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    margin-top: 5px;
-
-}
-
-
-#volume {
-
-    width: 100px;
-
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    main {
-
-        padding: 15px;
+        return;
 
     }
 
 
-    .songButtons button {
+    list.forEach(song => {
 
-        width: 33px;
+        const div =
+            document.createElement("div");
 
-        height: 33px;
+
+        div.className =
+            "song";
+
+
+        const sourceText =
+            song.type === "youtube"
+                ? "▶ YouTube"
+                : "🎵 MP3";
+
+
+        const downloadButton =
+            song.type === "mp3"
+                ? `
+                    <button
+                        onclick="downloadSong(${song.id})">
+                        ⬇
+                    </button>
+                  `
+                : "";
+
+
+        div.innerHTML = `
+
+            <img
+                class="songCover"
+                src="${song.cover}"
+                onerror="
+                    this.src='https://placehold.co/100x100'
+                "
+            >
+
+
+            <div class="songInfo">
+
+                <div class="songTitle">
+                    ${song.title}
+                </div>
+
+
+                <div class="songArtist">
+                    ${song.artist}
+                </div>
+
+
+                <span class="songSource">
+                    ${sourceText}
+                </span>
+
+            </div>
+
+
+            <div class="songButtons">
+
+                <button
+                    onclick="
+                        playSongById(${song.id})
+                    ">
+                    ▶
+                </button>
+
+
+                ${downloadButton}
+
+
+                <button
+                    onclick="
+                        favoriteSong(${song.id})
+                    ">
+                    ⭐
+                </button>
+
+            </div>
+
+        `;
+
+
+        songList.appendChild(div);
+
+    });
+
+}
+
+
+
+/* =====================================================
+   PLAY SONG
+===================================================== */
+
+
+function playSongById(id) {
+
+    const index =
+        songs.findIndex(
+            song => song.id === id
+        );
+
+
+    if (index === -1) return;
+
+
+    currentIndex = index;
+
+
+    loadSong();
+
+}
+
+
+
+/* =====================================================
+   LOAD SONG
+===================================================== */
+
+
+function loadSong() {
+
+    const song =
+        songs[currentIndex];
+
+
+    if (!song) return;
+
+
+    playerTitle.textContent =
+        song.title;
+
+
+    playerArtist.textContent =
+        song.artist;
+
+
+    playerCover.src =
+        song.cover;
+
+
+    progress.value = 0;
+
+
+    currentTime.textContent =
+        "0:00";
+
+
+    duration.textContent =
+        "0:00";
+
+
+    /* MP3 */
+
+    if (song.type === "mp3") {
+
+        youtubeContainer.style.display =
+            "none";
+
+
+        if (youtubePlayer &&
+            youtubeReady) {
+
+            youtubePlayer.stopVideo();
+
+        }
+
+
+        audio.src =
+            song.file;
+
+
+        audio.volume =
+            volume.value;
+
+
+        audio.play()
+            .then(() => {
+
+                playBtn.textContent =
+                    "⏸";
+
+            })
+            .catch(() => {
+
+                playBtn.textContent =
+                    "▶";
+
+            });
+
+
+        playerType.textContent =
+            "🎵 MP3";
 
     }
 
 
-    .player {
+    /* YOUTUBE */
 
-        padding: 9px;
+    else if (
+        song.type === "youtube"
+    ) {
+
+        audio.pause();
+
+
+        audio.src = "";
+
+
+        youtubeContainer.style.display =
+            "block";
+
+
+        playerType.textContent =
+            "▶ YouTube";
+
+
+        if (
+            youtubePlayer &&
+            youtubeReady
+        ) {
+
+            youtubePlayer.loadVideoById(
+                song.youtubeId
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+
+playBtn.addEventListener(
+    "click",
+    function () {
+
+        const song =
+            songs[currentIndex];
+
+
+        if (!song) return;
+
+
+        /* MP3 */
+
+        if (song.type === "mp3") {
+
+            if (audio.paused) {
+
+                audio.play();
+
+                playBtn.textContent =
+                    "⏸";
+
+            } else {
+
+                audio.pause();
+
+                playBtn.textContent =
+                    "▶";
+
+            }
+
+        }
+
+
+        /* YOUTUBE */
+
+        else {
+
+            if (
+                youtubePlayer &&
+                youtubeReady
+            ) {
+
+                const state =
+                    youtubePlayer
+                    .getPlayerState();
+
+
+                if (
+                    state ===
+                    YT.PlayerState.PLAYING
+                ) {
+
+                    youtubePlayer.pauseVideo();
+
+                    playBtn.textContent =
+                        "▶";
+
+                } else {
+
+                    youtubePlayer.playVideo();
+
+                    playBtn.textContent =
+                        "⏸";
+
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   NEXT SONG
+===================================================== */
+
+
+nextBtn.addEventListener(
+    "click",
+    nextSong
+);
+
+
+function nextSong() {
+
+    if (shuffle) {
+
+        currentIndex =
+            Math.floor(
+                Math.random() *
+                songs.length
+            );
+
+    }
+
+    else {
+
+        currentIndex++;
+
+        if (
+            currentIndex >=
+            songs.length
+        ) {
+
+            currentIndex = 0;
+
+        }
 
     }
 
 
-    .controls {
+    loadSong();
 
-        gap: 9px;
+}
+
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+
+previousBtn.addEventListener(
+    "click",
+    function () {
+
+        currentIndex--;
+
+
+        if (
+            currentIndex < 0
+        ) {
+
+            currentIndex =
+                songs.length - 1;
+
+        }
+
+
+        loadSong();
+
+    }
+);
+
+
+
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+
+shuffleBtn.addEventListener(
+    "click",
+    function () {
+
+        shuffle =
+            !shuffle;
+
+
+        shuffleBtn.style.opacity =
+            shuffle
+                ? "1"
+                : "0.5";
+
+    }
+);
+
+
+
+/* =====================================================
+   REPEAT
+===================================================== */
+
+
+repeatBtn.addEventListener(
+    "click",
+    function () {
+
+        repeat =
+            !repeat;
+
+
+        repeatBtn.style.opacity =
+            repeat
+                ? "1"
+                : "0.5";
+
+    }
+);
+
+
+
+/* =====================================================
+   MP3 TIME
+===================================================== */
+
+
+audio.addEventListener(
+    "timeupdate",
+    function () {
+
+        if (
+            !audio.duration
+        ) return;
+
+
+        progress.value =
+            (
+                audio.currentTime /
+                audio.duration
+            ) * 100;
+
+
+        currentTime.textContent =
+            formatTime(
+                audio.currentTime
+            );
+
+    }
+);
+
+
+audio.addEventListener(
+    "loadedmetadata",
+    function () {
+
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
+
+    }
+);
+
+
+
+/* =====================================================
+   MP3 PROGRESS
+===================================================== */
+
+
+progress.addEventListener(
+    "input",
+    function () {
+
+        const song =
+            songs[currentIndex];
+
+
+        if (
+            song &&
+            song.type === "mp3" &&
+            audio.duration
+        ) {
+
+            audio.currentTime =
+                (
+                    progress.value /
+                    100
+                ) *
+                audio.duration;
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   VOLUME
+===================================================== */
+
+
+volume.addEventListener(
+    "input",
+    function () {
+
+        audio.volume =
+            volume.value;
+
+
+        if (
+            youtubePlayer &&
+            youtubeReady
+        ) {
+
+            youtubePlayer.setVolume(
+                volume.value * 100
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   MP3 ENDED
+===================================================== */
+
+
+audio.addEventListener(
+    "ended",
+    function () {
+
+        if (repeat) {
+
+            audio.currentTime =
+                0;
+
+
+            audio.play();
+
+        }
+
+        else {
+
+            nextSong();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   YOUTUBE ENDED
+===================================================== */
+
+
+function onYoutubeStateChange(event) {
+
+    if (
+        event.data ===
+        YT.PlayerState.PLAYING
+    ) {
+
+        playBtn.textContent =
+            "⏸";
 
     }
 
 
-    .youtubeContainer {
+    if (
+        event.data ===
+        YT.PlayerState.PAUSED
+    ) {
 
-        width: 96%;
+        playBtn.textContent =
+            "▶";
 
     }
+
+
+    if (
+        event.data ===
+        YT.PlayerState.ENDED
+    ) {
+
+        if (repeat) {
+
+            youtubePlayer.playVideo();
+
+        }
+
+        else {
+
+            nextSong();
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+
+searchInput.addEventListener(
+    "input",
+    function () {
+
+        const search =
+            searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+        const filtered =
+            currentPlaylist.filter(
+                song =>
+
+                    song.title
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    song.artist
+                        .toLowerCase()
+                        .includes(search)
+            );
+
+
+        showSongs(filtered);
+
+    }
+);
+
+
+
+/* =====================================================
+   PLAYLISTS
+===================================================== */
+
+
+document
+    .querySelectorAll(
+        ".playlistBtn"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const playlist =
+                    button.dataset.playlist;
+
+
+                if (
+                    playlist ===
+                    "All"
+                ) {
+
+                    currentPlaylist =
+                        [...songs];
+
+
+                    playlistTitle.textContent =
+                        "All Songs";
+
+                }
+
+
+                else if (
+                    playlist ===
+                    "Favorites"
+                ) {
+
+                    const favorites =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "favorites"
+                            ) || "[]"
+                        );
+
+
+                    currentPlaylist =
+                        songs.filter(
+                            song =>
+                                favorites.includes(
+                                    song.id
+                                )
+                        );
+
+
+                    playlistTitle.textContent =
+                        "Favorites";
+
+                }
+
+
+                else {
+
+                    currentPlaylist =
+                        songs.filter(
+                            song =>
+                                song.playlist ===
+                                playlist
+                        );
+
+
+                    playlistTitle.textContent =
+                        playlist;
+
+                }
+
+
+                showSongs();
+
+            }
+        );
+
+    });
+
+
+
+/* =====================================================
+   FAVORITES
+===================================================== */
+
+
+function favoriteSong(id) {
+
+    let favorites =
+        JSON.parse(
+            localStorage.getItem(
+                "favorites"
+            ) || "[]"
+        );
+
+
+    if (
+        favorites.includes(id)
+    ) {
+
+        favorites =
+            favorites.filter(
+                item =>
+                    item !== id
+            );
+
+    }
+
+    else {
+
+        favorites.push(id);
+
+    }
+
+
+    localStorage.setItem(
+        "favorites",
+        JSON.stringify(
+            favorites
+        )
+    );
+
+
+    alert(
+        "Favorites updated"
+    );
+
+}
+
+
+
+/* =====================================================
+   DOWNLOAD MP3
+===================================================== */
+
+
+async function downloadSong(id) {
+
+    const song =
+        songs.find(
+            song =>
+                song.id === id
+        );
+
+
+    if (
+        !song ||
+        song.type !== "mp3"
+    ) return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                song.file
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Download failed"
+            );
+
+        }
+
+
+        const blob =
+            await response.blob();
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            song.title + ".mp3";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+    }
+
+
+    catch (error) {
+
+        alert(
+            "Unable to download this MP3."
+        );
+
+
+        console.error(error);
+
+    }
+
+}
+
+
+
+/* =====================================================
+   TIME FORMAT
+===================================================== */
+
+
+function formatTime(seconds) {
+
+    if (
+        isNaN(seconds)
+    ) {
+
+        return "0:00";
+
+    }
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    const secs =
+        Math.floor(
+            seconds % 60
+        );
+
+
+    return (
+        minutes +
+        ":" +
+        secs
+            .toString()
+            .padStart(
+                2,
+                "0"
+            )
+    );
+
+}
+
+
+
+/* =====================================================
+   CLOSE YOUTUBE
+===================================================== */
+
+
+closeYoutube.addEventListener(
+    "click",
+    function () {
+
+        youtubeContainer.style.display =
+            "none";
+
+
+        if (
+            youtubePlayer &&
+            youtubeReady
+        ) {
+
+            youtubePlayer.stopVideo();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+
+showSongs();
+
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker.register(
+                "./sw.js"
+            );
+
+        }
+    );
 
 }
