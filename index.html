@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#111111">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>My Music</title>
+    <meta name="theme-color"
+          content="#0d0d0d">
 
-    <link rel="stylesheet" href="style.css">
+    <title>90s Kids Vibe</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
 </head>
+
 
 <body>
 
-<header>
-    <div class="logo">🎵 My Music</div>
 
-    <button id="menuBtn">☰</button>
+<header>
+
+    <div class="logo">
+        🎵 90s Kids Vibe
+    </div>
+
+    <button id="menuBtn">
+        ☰
+    </button>
+
 </header>
+
 
 
 <main>
 
+
     <!-- SEARCH -->
 
     <div class="searchBox">
+
         <input
-            type="text"
             id="searchInput"
-            placeholder="Search songs, artists..."
+            type="text"
+            placeholder="Search songs or artists..."
         >
+
     </div>
+
 
 
     <!-- PLAYLISTS -->
@@ -41,19 +61,30 @@
 
         <div class="playlistContainer">
 
-            <button class="playlistBtn" data-playlist="All">
+            <button
+                class="playlistBtn"
+                data-playlist="All">
                 🎵 All Songs
             </button>
 
-            <button class="playlistBtn" data-playlist="90s">
+
+            <button
+                class="playlistBtn"
+                data-playlist="90s">
                 📻 90s Hits
             </button>
 
-            <button class="playlistBtn" data-playlist="Romantic">
+
+            <button
+                class="playlistBtn"
+                data-playlist="Romantic">
                 ❤️ Romantic
             </button>
 
-            <button class="playlistBtn" data-playlist="Favorites">
+
+            <button
+                class="playlistBtn"
+                data-playlist="Favorites">
                 ⭐ Favorites
             </button>
 
@@ -62,26 +93,57 @@
     </section>
 
 
+
     <!-- SONG LIST -->
 
     <section>
 
-        <h2 id="playlistTitle">All Songs</h2>
+        <h2 id="playlistTitle">
+            All Songs
+        </h2>
 
         <div id="songList"></div>
 
     </section>
 
+
 </main>
 
 
-<!-- PLAYER -->
+
+<!-- YOUTUBE PLAYER -->
+
+<div
+    id="youtubeContainer"
+    class="youtubeContainer">
+
+    <div id="youtubePlayer"></div>
+
+    <button
+        id="closeYoutube"
+        class="closeYoutube">
+
+        ✕ Close YouTube
+
+    </button>
+
+</div>
+
+
+
+<!-- MUSIC PLAYER -->
 
 <div class="player">
 
+
     <div class="playerInfo">
 
-        <img id="playerCover" src="https://placehold.co/100x100" alt="Album">
+
+        <img
+            id="playerCover"
+            src="https://placehold.co/100x100"
+            alt="Album">
+
 
         <div>
 
@@ -89,13 +151,22 @@
                 Select a song
             </h3>
 
+
             <p id="playerArtist">
                 —
             </p>
 
+
+            <span
+                id="playerType">
+                —
+            </span>
+
         </div>
 
+
     </div>
+
 
 
     <!-- PROGRESS -->
@@ -105,44 +176,59 @@
         id="progress"
         value="0"
         min="0"
-        max="100"
-    >
+        max="100">
 
 
     <div class="time">
 
-        <span id="currentTime">0:00</span>
+        <span id="currentTime">
+            0:00
+        </span>
 
-        <span id="duration">0:00</span>
+        <span id="duration">
+            0:00
+        </span>
 
     </div>
+
 
 
     <!-- CONTROLS -->
 
     <div class="controls">
 
+
         <button id="shuffleBtn">
             🔀
         </button>
+
 
         <button id="previousBtn">
             ⏮
         </button>
 
-        <button id="playBtn" class="playButton">
+
+        <button
+            id="playBtn"
+            class="playButton">
+
             ▶
+
         </button>
+
 
         <button id="nextBtn">
             ⏭
         </button>
 
+
         <button id="repeatBtn">
             🔁
         </button>
 
+
     </div>
+
 
 
     <!-- VOLUME -->
@@ -157,18 +243,31 @@
             min="0"
             max="1"
             step="0.01"
-            value="1"
-        >
+            value="1">
 
     </div>
+
 
 </div>
 
 
+
+<!-- AUDIO -->
+
 <audio id="audio"></audio>
+
+
+
+<!-- YOUTUBE API -->
+
+<script
+    src="https://www.youtube.com/iframe_api">
+</script>
 
 
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
