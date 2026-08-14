@@ -1,724 +1,579 @@
-/* =========================================
-   MUSIC DATABASE
-========================================= */
+* {
+    box-sizing: border-box;
+}
 
-const songs = [
 
-    {
-        id: 1,
+body {
 
-        title: "Your Song 1",
+    margin: 0;
 
-        artist: "Your Artist",
+    background: #0d0d0d;
 
-        album: "My Album",
+    color: white;
 
-        playlist: "90s",
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-        file: "music/song1.mp3",
-
-        cover: "covers/song1.jpg"
-    },
-
-
-    {
-        id: 2,
-
-        title: "Your Song 2",
-
-        artist: "Your Artist",
-
-        album: "My Album",
-
-        playlist: "Romantic",
-
-        file: "music/song2.mp3",
-
-        cover: "covers/song2.jpg"
-    },
-
-
-    {
-        id: 3,
-
-        title: "Your Song 3",
-
-        artist: "Your Artist",
-
-        album: "My Album",
-
-        playlist: "90s",
-
-        file: "music/song3.mp3",
-
-        cover: "covers/song3.jpg"
-    }
-
-];
-
-
-/* =========================================
-   PLAYER
-========================================= */
-
-const audio = document.getElementById("audio");
-
-const playBtn = document.getElementById("playBtn");
-
-const previousBtn =
-    document.getElementById("previousBtn");
-
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const shuffleBtn =
-    document.getElementById("shuffleBtn");
-
-const repeatBtn =
-    document.getElementById("repeatBtn");
-
-const progress =
-    document.getElementById("progress");
-
-const volume =
-    document.getElementById("volume");
-
-const playerTitle =
-    document.getElementById("playerTitle");
-
-const playerArtist =
-    document.getElementById("playerArtist");
-
-const playerCover =
-    document.getElementById("playerCover");
-
-const currentTime =
-    document.getElementById("currentTime");
-
-const duration =
-    document.getElementById("duration");
-
-const songList =
-    document.getElementById("songList");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const playlistTitle =
-    document.getElementById("playlistTitle");
-
-
-let currentIndex = 0;
-
-let currentPlaylist = [...songs];
-
-let shuffle = false;
-
-let repeat = false;
-
-
-/* =========================================
-   SHOW SONGS
-========================================= */
-
-function showSongs(list = currentPlaylist) {
-
-    songList.innerHTML = "";
-
-
-    if (list.length === 0) {
-
-        songList.innerHTML =
-            "<p>No songs found.</p>";
-
-        return;
-    }
-
-
-    list.forEach((song, index) => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "song";
-
-
-        div.innerHTML = `
-
-            <img
-                class="songCover"
-                src="${song.cover}"
-                onerror="this.src='https://placehold.co/100x100'"
-            >
-
-            <div class="songInfo">
-
-                <div class="songTitle">
-                    ${song.title}
-                </div>
-
-                <div class="songArtist">
-                    ${song.artist}
-                </div>
-
-            </div>
-
-
-            <div class="songButtons">
-
-                <button
-                    onclick="playSongById(${song.id})"
-                >
-                    ▶
-                </button>
-
-
-                <button
-                    onclick="downloadSong(${song.id})"
-                >
-                    ⬇
-                </button>
-
-
-                <button
-                    onclick="favoriteSong(${song.id})"
-                >
-                    ⭐
-                </button>
-
-            </div>
-
-        `;
-
-
-        songList.appendChild(div);
-
-    });
+    padding-bottom: 190px;
 
 }
 
 
-/* =========================================
-   PLAY SONG
-========================================= */
+/* HEADER */
 
-function playSongById(id) {
+header {
 
-    const index =
-        songs.findIndex(song => song.id === id);
+    height: 65px;
 
-    if (index === -1) return;
+    background: #151515;
 
-    currentIndex = index;
+    display: flex;
 
-    loadSong();
+    align-items: center;
 
-    audio.play();
+    justify-content: space-between;
 
-}
+    padding: 0 20px;
 
+    position: sticky;
 
-/* =========================================
-   LOAD SONG
-========================================= */
+    top: 0;
 
-function loadSong() {
+    z-index: 50;
 
-    const song = songs[currentIndex];
-
-    if (!song) return;
-
-
-    audio.src = song.file;
-
-    playerTitle.textContent =
-        song.title;
-
-    playerArtist.textContent =
-        song.artist;
-
-    playerCover.src =
-        song.cover;
-
-
-    audio.load();
-
-    playBtn.textContent = "▶";
+    border-bottom:
+        1px solid #292929;
 
 }
 
 
-/* =========================================
-   PLAY / PAUSE
-========================================= */
+.logo {
 
-playBtn.addEventListener(
-    "click",
-    function () {
+    font-size: 21px;
 
-        if (!audio.src) {
-
-            loadSong();
-
-        }
-
-
-        if (audio.paused) {
-
-            audio.play();
-
-            playBtn.textContent = "⏸";
-
-        } else {
-
-            audio.pause();
-
-            playBtn.textContent = "▶";
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   NEXT
-========================================= */
-
-nextBtn.addEventListener(
-    "click",
-    nextSong
-);
-
-
-function nextSong() {
-
-    if (shuffle) {
-
-        currentIndex =
-            Math.floor(
-                Math.random() * songs.length
-            );
-
-    } else {
-
-        currentIndex++;
-
-        if (currentIndex >= songs.length) {
-
-            currentIndex = 0;
-
-        }
-
-    }
-
-
-    loadSong();
-
-    audio.play();
+    font-weight: bold;
 
 }
 
 
-/* =========================================
-   PREVIOUS
-========================================= */
+#menuBtn {
 
-previousBtn.addEventListener(
-    "click",
-    function () {
+    background: none;
 
-        currentIndex--;
+    border: none;
 
-        if (currentIndex < 0) {
+    color: white;
 
-            currentIndex =
-                songs.length - 1;
-
-        }
-
-
-        loadSong();
-
-        audio.play();
-
-    }
-);
-
-
-/* =========================================
-   SHUFFLE
-========================================= */
-
-shuffleBtn.addEventListener(
-    "click",
-    function () {
-
-        shuffle = !shuffle;
-
-        shuffleBtn.style.opacity =
-            shuffle ? "1" : "0.5";
-
-    }
-);
-
-
-/* =========================================
-   REPEAT
-========================================= */
-
-repeatBtn.addEventListener(
-    "click",
-    function () {
-
-        repeat = !repeat;
-
-        repeatBtn.style.opacity =
-            repeat ? "1" : "0.5";
-
-    }
-);
-
-
-/* =========================================
-   SONG ENDED
-========================================= */
-
-audio.addEventListener(
-    "ended",
-    function () {
-
-        if (repeat) {
-
-            audio.currentTime = 0;
-
-            audio.play();
-
-        } else {
-
-            nextSong();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   PROGRESS
-========================================= */
-
-audio.addEventListener(
-    "timeupdate",
-    function () {
-
-        if (!audio.duration) return;
-
-
-        progress.value =
-            (audio.currentTime /
-             audio.duration) * 100;
-
-
-        currentTime.textContent =
-            formatTime(audio.currentTime);
-
-    }
-);
-
-
-audio.addEventListener(
-    "loadedmetadata",
-    function () {
-
-        duration.textContent =
-            formatTime(audio.duration);
-
-    }
-);
-
-
-progress.addEventListener(
-    "input",
-    function () {
-
-        if (!audio.duration) return;
-
-
-        audio.currentTime =
-            (progress.value / 100) *
-            audio.duration;
-
-    }
-);
-
-
-/* =========================================
-   VOLUME
-========================================= */
-
-volume.addEventListener(
-    "input",
-    function () {
-
-        audio.volume =
-            volume.value;
-
-    }
-);
-
-
-/* =========================================
-   TIME FORMAT
-========================================= */
-
-function formatTime(seconds) {
-
-    if (isNaN(seconds)) {
-
-        return "0:00";
-
-    }
-
-
-    const minutes =
-        Math.floor(seconds / 60);
-
-
-    const secs =
-        Math.floor(seconds % 60);
-
-
-    return (
-        minutes +
-        ":" +
-        secs.toString().padStart(2, "0")
-    );
+    font-size: 24px;
 
 }
 
 
-/* =========================================
-   SEARCH
-========================================= */
+/* MAIN */
 
-searchInput.addEventListener(
-    "input",
-    function () {
+main {
 
-        const search =
-            searchInput.value
-            .toLowerCase()
-            .trim();
+    max-width: 900px;
 
+    margin: auto;
 
-        const filtered =
-            currentPlaylist.filter(song =>
-
-                song.title
-                .toLowerCase()
-                .includes(search)
-
-                ||
-
-                song.artist
-                .toLowerCase()
-                .includes(search)
-
-            );
-
-
-        showSongs(filtered);
-
-    }
-);
-
-
-/* =========================================
-   PLAYLIST BUTTONS
-========================================= */
-
-document
-    .querySelectorAll(".playlistBtn")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                const playlist =
-                    button.dataset.playlist;
-
-
-                if (playlist === "All") {
-
-                    currentPlaylist =
-                        [...songs];
-
-                    playlistTitle.textContent =
-                        "All Songs";
-
-                }
-
-                else if (playlist === "Favorites") {
-
-                    const favorites =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "favorites"
-                            ) || "[]"
-                        );
-
-
-                    currentPlaylist =
-                        songs.filter(song =>
-                            favorites.includes(song.id)
-                        );
-
-
-                    playlistTitle.textContent =
-                        "Favorites";
-
-                }
-
-                else {
-
-                    currentPlaylist =
-                        songs.filter(song =>
-                            song.playlist === playlist
-                        );
-
-
-                    playlistTitle.textContent =
-                        playlist;
-
-                }
-
-
-                showSongs();
-
-            }
-        );
-
-    });
-
-
-/* =========================================
-   FAVORITES
-========================================= */
-
-function favoriteSong(id) {
-
-    let favorites =
-        JSON.parse(
-            localStorage.getItem(
-                "favorites"
-            ) || "[]"
-        );
-
-
-    if (favorites.includes(id)) {
-
-        favorites =
-            favorites.filter(
-                item => item !== id
-            );
-
-    } else {
-
-        favorites.push(id);
-
-    }
-
-
-    localStorage.setItem(
-        "favorites",
-        JSON.stringify(favorites)
-    );
-
-
-    alert("Favorites updated");
+    padding: 20px;
 
 }
 
 
-/* =========================================
-   DOWNLOAD SONG
-========================================= */
+h2 {
 
-async function downloadSong(id) {
+    margin-top: 28px;
 
-    const song =
-        songs.find(
-            song => song.id === id
-        );
-
-
-    if (!song) return;
-
-
-    try {
-
-        const response =
-            await fetch(song.file);
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Download failed"
-            );
-
-        }
-
-
-        const blob =
-            await response.blob();
-
-
-        const url =
-            URL.createObjectURL(blob);
-
-
-        const link =
-            document.createElement("a");
-
-
-        link.href = url;
-
-        link.download =
-            song.title + ".mp3";
-
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        link.remove();
-
-
-        URL.revokeObjectURL(url);
-
-
-    }
-
-    catch (error) {
-
-        alert(
-            "Unable to download this song."
-        );
-
-        console.error(error);
-
-    }
+    font-size: 20px;
 
 }
 
 
-/* =========================================
-   START
-========================================= */
+/* SEARCH */
 
-showSongs();
+.searchBox {
 
-loadSong();
+    margin-bottom: 20px;
+
+}
+
+
+#searchInput {
+
+    width: 100%;
+
+    padding: 15px 18px;
+
+    border-radius: 30px;
+
+    border: 1px solid #333;
+
+    background: #1c1c1c;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+}
+
+
+#searchInput:focus {
+
+    border-color: #777;
+
+}
+
+
+/* PLAYLISTS */
+
+.playlistContainer {
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding-bottom: 8px;
+
+}
+
+
+.playlistBtn {
+
+    background: #222;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 25px;
+
+    padding: 12px 18px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+}
+
+
+.playlistBtn:hover {
+
+    background: #333;
+
+}
+
+
+/* SONG */
+
+.song {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.song:hover {
+
+    background: #1b1b1b;
+
+}
+
+
+.songCover {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 7px;
+
+    object-fit: cover;
+
+}
+
+
+.songInfo {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.songTitle {
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.songArtist {
+
+    color: #999;
+
+    font-size: 14px;
+
+    margin-top: 4px;
+
+}
+
+
+.songSource {
+
+    display: inline-block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #aaa;
+
+}
+
+
+.songButtons {
+
+    display: flex;
+
+    gap: 5px;
+
+}
+
+
+.songButtons button {
+
+    border: none;
+
+    background: #252525;
+
+    color: white;
+
+    border-radius: 50%;
+
+    width: 36px;
+
+    height: 36px;
+
+    cursor: pointer;
+
+}
+
+
+.songButtons button:hover {
+
+    background: #3a3a3a;
+
+}
+
+
+/* YOUTUBE */
+
+.youtubeContainer {
+
+    display: none;
+
+    position: fixed;
+
+    top: 75px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    max-width: 700px;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    z-index: 100;
+
+}
+
+
+#youtubePlayer {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+}
+
+
+.closeYoutube {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    background: #222;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+/* PLAYER */
+
+.player {
+
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    right: 0;
+
+    background: #171717;
+
+    border-top: 1px solid #333;
+
+    padding: 12px 20px;
+
+    z-index: 80;
+
+    box-shadow:
+        0 -5px 20px rgba(0,0,0,.5);
+
+}
+
+
+.playerInfo {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+#playerCover {
+
+    width: 55px;
+
+    height: 55px;
+
+    object-fit: cover;
+
+    border-radius: 7px;
+
+}
+
+
+.playerInfo h3 {
+
+    margin: 0;
+
+    font-size: 16px;
+
+}
+
+
+.playerInfo p {
+
+    margin: 4px 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+#playerType {
+
+    font-size: 11px;
+
+    color: #777;
+
+}
+
+
+/* PROGRESS */
+
+#progress {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 700px;
+
+    margin: 10px auto 0;
+
+}
+
+
+.time {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 11px;
+
+    color: #999;
+
+}
+
+
+/* CONTROLS */
+
+.controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 8px;
+
+}
+
+
+.controls button {
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+}
+
+
+.playButton {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: white !important;
+
+    color: black !important;
+
+    font-size: 22px !important;
+
+}
+
+
+/* VOLUME */
+
+.volume {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 5px;
+
+}
+
+
+#volume {
+
+    width: 100px;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    main {
+
+        padding: 15px;
+
+    }
+
+
+    .songButtons button {
+
+        width: 33px;
+
+        height: 33px;
+
+    }
+
+
+    .player {
+
+        padding: 9px;
+
+    }
+
+
+    .controls {
+
+        gap: 9px;
+
+    }
+
+
+    .youtubeContainer {
+
+        width: 96%;
+
+    }
+
+}
