@@ -1,10 +1,17 @@
-const CACHE_NAME = "my-music-v1";
+const CACHE_NAME =
+    "90s-kids-vibe-v1";
+
 
 const FILES_TO_CACHE = [
+
     "./",
+
     "./index.html",
+
     "./style.css",
+
     "./script.js"
+
 ];
 
 
@@ -14,12 +21,15 @@ self.addEventListener(
 
         event.waitUntil(
 
-            caches.open(CACHE_NAME)
-                .then(cache =>
+            caches.open(
+                CACHE_NAME
+            )
+            .then(
+                cache =>
                     cache.addAll(
                         FILES_TO_CACHE
                     )
-                )
+            )
 
         );
 
@@ -47,15 +57,17 @@ self.addEventListener(
 
         event.respondWith(
 
-            caches.match(event.request)
-                .then(cachedResponse => {
+            caches.match(
+                event.request
+            )
+            .then(
+                cached =>
 
-                    return (
-                        cachedResponse ||
-                        fetch(event.request)
-                    );
-
-                })
+                    cached ||
+                    fetch(
+                        event.request
+                    )
+            )
 
         );
 
