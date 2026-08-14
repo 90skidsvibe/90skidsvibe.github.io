@@ -5,89 +5,104 @@
 
 
 /* =====================================================
-   YOUR SONG DATABASE
+   SONG DATABASE
+=====================================================
 
+   For MP3:
    type: "mp3"
-   OR
+   file: "music/song.mp3"
+
+   For YouTube:
    type: "youtube"
+   youtubeId: "YOUR_VIDEO_ID"
+
 ===================================================== */
 
 
 const songs = [
 
-    /* YOUR UPLOADED MP3 */
+    /* =========================
+       YOUR MP3 SONGS
+    ========================= */
 
     {
         id: 1,
-
         title: "My MP3 Song",
-
         artist: "My Artist",
-
         playlist: "90s",
-
         type: "mp3",
-
         file: "music/song1.mp3",
-
         cover: "covers/song1.jpg"
     },
 
-
-    /* YOUTUBE SONG */
-
     {
         id: 2,
-
-        title: "YouTube Song",
-
-        artist: "YouTube Artist",
-
-        playlist: "90s",
-
-        type: "youtube",
-
-        youtubeId: "VIDEO_ID_HERE",
-
-        cover: "https://img.youtube.com/vi/VIDEO_ID_HERE/hqdefault.jpg"
-    },
-
-
-    /* ANOTHER MP3 */
-
-    {
-        id: 3,
-
         title: "Another MP3",
-
         artist: "My Artist",
-
-        playlist: "Romantic",
-
+        playlist: "90s",
         type: "mp3",
-
         file: "music/song2.mp3",
-
         cover: "covers/song2.jpg"
     },
 
 
-    /* ANOTHER YOUTUBE SONG */
+    /* =========================
+       YOUTUBE SONG 1
+    ========================= */
+
+    {
+        id: 3,
+        title: "YouTube Song 1",
+        artist: "Artist 1",
+        playlist: "90s",
+        type: "youtube",
+        youtubeId: "VIDEO_ID_1",
+        cover: "https://img.youtube.com/vi/VIDEO_ID_1/hqdefault.jpg"
+    },
+
+
+    /* =========================
+       YOUTUBE SONG 2
+    ========================= */
 
     {
         id: 4,
-
-        title: "Another YouTube Song",
-
-        artist: "Artist",
-
-        playlist: "Romantic",
-
+        title: "YouTube Song 2",
+        artist: "Artist 2",
+        playlist: "90s",
         type: "youtube",
+        youtubeId: "VIDEO_ID_2",
+        cover: "https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg"
+    },
 
-        youtubeId: "VIDEO_ID_HERE",
 
-        cover: "https://img.youtube.com/vi/VIDEO_ID_HERE/hqdefault.jpg"
+    /* =========================
+       YOUTUBE SONG 3
+    ========================= */
+
+    {
+        id: 5,
+        title: "YouTube Song 3",
+        artist: "Artist 3",
+        playlist: "Romantic",
+        type: "youtube",
+        youtubeId: "VIDEO_ID_3",
+        cover: "https://img.youtube.com/vi/VIDEO_ID_3/hqdefault.jpg"
+    },
+
+
+    /* =========================
+       YOUTUBE SONG 4
+    ========================= */
+
+    {
+        id: 6,
+        title: "YouTube Song 4",
+        artist: "Artist 4",
+        playlist: "Romantic",
+        type: "youtube",
+        youtubeId: "VIDEO_ID_4",
+        cover: "https://img.youtube.com/vi/VIDEO_ID_4/hqdefault.jpg"
     }
 
 ];
@@ -95,102 +110,83 @@ const songs = [
 
 
 /* =====================================================
-   VARIABLES
+   ELEMENTS
 ===================================================== */
 
 
 const audio =
     document.getElementById("audio");
 
-
 const playBtn =
     document.getElementById("playBtn");
-
 
 const previousBtn =
     document.getElementById("previousBtn");
 
-
 const nextBtn =
     document.getElementById("nextBtn");
-
 
 const shuffleBtn =
     document.getElementById("shuffleBtn");
 
-
 const repeatBtn =
     document.getElementById("repeatBtn");
-
 
 const progress =
     document.getElementById("progress");
 
-
 const volume =
     document.getElementById("volume");
-
 
 const playerTitle =
     document.getElementById("playerTitle");
 
-
 const playerArtist =
     document.getElementById("playerArtist");
-
 
 const playerCover =
     document.getElementById("playerCover");
 
-
 const playerType =
     document.getElementById("playerType");
-
 
 const currentTime =
     document.getElementById("currentTime");
 
-
 const duration =
     document.getElementById("duration");
-
 
 const songList =
     document.getElementById("songList");
 
-
 const searchInput =
     document.getElementById("searchInput");
-
 
 const playlistTitle =
     document.getElementById("playlistTitle");
 
-
 const youtubeContainer =
     document.getElementById("youtubeContainer");
-
 
 const closeYoutube =
     document.getElementById("closeYoutube");
 
 
 
+/* =====================================================
+   PLAYER VARIABLES
+===================================================== */
+
+
 let currentIndex = 0;
 
-
-let currentPlaylist =
-    [...songs];
-
+let currentPlaylist = [...songs];
 
 let shuffle = false;
 
-
 let repeat = false;
 
-
 let youtubePlayer = null;
-
 
 let youtubeReady = false;
 
@@ -231,6 +227,10 @@ window.onYouTubeIframeAPIReady =
                                 youtubeReady =
                                     true;
 
+                                youtubePlayer.setVolume(
+                                    volume.value * 100
+                                );
+
                             },
 
                         onStateChange:
@@ -270,7 +270,6 @@ function showSongs(list = currentPlaylist) {
         const div =
             document.createElement("div");
 
-
         div.className =
             "song";
 
@@ -281,15 +280,19 @@ function showSongs(list = currentPlaylist) {
                 : "🎵 MP3";
 
 
-        const downloadButton =
-            song.type === "mp3"
-                ? `
-                    <button
-                        onclick="downloadSong(${song.id})">
-                        ⬇
-                    </button>
-                  `
-                : "";
+        let downloadButton = "";
+
+
+        if (song.type === "mp3") {
+
+            downloadButton = `
+                <button
+                    onclick="downloadSong(${song.id})">
+                    ⬇
+                </button>
+            `;
+
+        }
 
 
         div.innerHTML = `
@@ -309,11 +312,9 @@ function showSongs(list = currentPlaylist) {
                     ${song.title}
                 </div>
 
-
                 <div class="songArtist">
                     ${song.artist}
                 </div>
-
 
                 <span class="songSource">
                     ${sourceText}
@@ -331,9 +332,7 @@ function showSongs(list = currentPlaylist) {
                     ▶
                 </button>
 
-
                 ${downloadButton}
-
 
                 <button
                     onclick="
@@ -356,7 +355,7 @@ function showSongs(list = currentPlaylist) {
 
 
 /* =====================================================
-   PLAY SONG
+   PLAY SONG BY ID
 ===================================================== */
 
 
@@ -368,11 +367,14 @@ function playSongById(id) {
         );
 
 
-    if (index === -1) return;
+    if (index === -1) {
+
+        return;
+
+    }
 
 
     currentIndex = index;
-
 
     loadSong();
 
@@ -381,7 +383,7 @@ function playSongById(id) {
 
 
 /* =====================================================
-   LOAD SONG
+   LOAD CURRENT SONG
 ===================================================== */
 
 
@@ -391,16 +393,18 @@ function loadSong() {
         songs[currentIndex];
 
 
-    if (!song) return;
+    if (!song) {
+
+        return;
+
+    }
 
 
     playerTitle.textContent =
         song.title;
 
-
     playerArtist.textContent =
         song.artist;
-
 
     playerCover.src =
         song.cover;
@@ -408,16 +412,16 @@ function loadSong() {
 
     progress.value = 0;
 
-
     currentTime.textContent =
         "0:00";
-
 
     duration.textContent =
         "0:00";
 
 
-    /* MP3 */
+    /* =========================
+       MP3
+    ========================= */
 
     if (song.type === "mp3") {
 
@@ -425,8 +429,10 @@ function loadSong() {
             "none";
 
 
-        if (youtubePlayer &&
-            youtubeReady) {
+        if (
+            youtubePlayer &&
+            youtubeReady
+        ) {
 
             youtubePlayer.stopVideo();
 
@@ -436,24 +442,27 @@ function loadSong() {
         audio.src =
             song.file;
 
-
         audio.volume =
             volume.value;
 
 
         audio.play()
-            .then(() => {
+            .then(
+                function () {
 
-                playBtn.textContent =
-                    "⏸";
+                    playBtn.textContent =
+                        "⏸";
 
-            })
-            .catch(() => {
+                }
+            )
+            .catch(
+                function () {
 
-                playBtn.textContent =
-                    "▶";
+                    playBtn.textContent =
+                        "▶";
 
-            });
+                }
+            );
 
 
         playerType.textContent =
@@ -462,14 +471,15 @@ function loadSong() {
     }
 
 
-    /* YOUTUBE */
+    /* =========================
+       YOUTUBE
+    ========================= */
 
     else if (
         song.type === "youtube"
     ) {
 
         audio.pause();
-
 
         audio.src = "";
 
@@ -512,7 +522,11 @@ playBtn.addEventListener(
             songs[currentIndex];
 
 
-        if (!song) return;
+        if (!song) {
+
+            return;
+
+        }
 
 
         /* MP3 */
@@ -526,7 +540,9 @@ playBtn.addEventListener(
                 playBtn.textContent =
                     "⏸";
 
-            } else {
+            }
+
+            else {
 
                 audio.pause();
 
@@ -548,8 +564,7 @@ playBtn.addEventListener(
             ) {
 
                 const state =
-                    youtubePlayer
-                    .getPlayerState();
+                    youtubePlayer.getPlayerState();
 
 
                 if (
@@ -562,7 +577,9 @@ playBtn.addEventListener(
                     playBtn.textContent =
                         "▶";
 
-                } else {
+                }
+
+                else {
 
                     youtubePlayer.playVideo();
 
@@ -593,19 +610,48 @@ nextBtn.addEventListener(
 
 function nextSong() {
 
-    if (shuffle) {
+    if (songs.length === 0) {
 
-        currentIndex =
-            Math.floor(
-                Math.random() *
-                songs.length
-            );
+        return;
 
     }
+
+
+    /* RANDOM */
+
+    if (shuffle) {
+
+        let randomIndex;
+
+
+        do {
+
+            randomIndex =
+                Math.floor(
+                    Math.random() *
+                    songs.length
+                );
+
+        }
+
+        while (
+            songs.length > 1 &&
+            randomIndex === currentIndex
+        );
+
+
+        currentIndex =
+            randomIndex;
+
+    }
+
+
+    /* NORMAL NEXT */
 
     else {
 
         currentIndex++;
+
 
         if (
             currentIndex >=
@@ -626,13 +672,20 @@ function nextSong() {
 
 
 /* =====================================================
-   PREVIOUS
+   PREVIOUS SONG
 ===================================================== */
 
 
 previousBtn.addEventListener(
     "click",
     function () {
+
+        if (songs.length === 0) {
+
+            return;
+
+        }
+
 
         currentIndex--;
 
@@ -667,10 +720,25 @@ shuffleBtn.addEventListener(
             !shuffle;
 
 
-        shuffleBtn.style.opacity =
-            shuffle
-                ? "1"
-                : "0.5";
+        if (shuffle) {
+
+            shuffleBtn.style.opacity =
+                "1";
+
+            shuffleBtn.style.transform =
+                "scale(1.15)";
+
+        }
+
+        else {
+
+            shuffleBtn.style.opacity =
+                "0.5";
+
+            shuffleBtn.style.transform =
+                "scale(1)";
+
+        }
 
     }
 );
@@ -701,7 +769,7 @@ repeatBtn.addEventListener(
 
 
 /* =====================================================
-   MP3 TIME
+   MP3 TIME UPDATE
 ===================================================== */
 
 
@@ -709,9 +777,11 @@ audio.addEventListener(
     "timeupdate",
     function () {
 
-        if (
-            !audio.duration
-        ) return;
+        if (!audio.duration) {
+
+            return;
+
+        }
 
 
         progress.value =
@@ -730,6 +800,12 @@ audio.addEventListener(
 );
 
 
+
+/* =====================================================
+   MP3 DURATION
+===================================================== */
+
+
 audio.addEventListener(
     "loadedmetadata",
     function () {
@@ -745,7 +821,7 @@ audio.addEventListener(
 
 
 /* =====================================================
-   MP3 PROGRESS
+   PROGRESS BAR
 ===================================================== */
 
 
@@ -807,7 +883,7 @@ volume.addEventListener(
 
 
 /* =====================================================
-   MP3 ENDED
+   MP3 FINISHED
 ===================================================== */
 
 
@@ -837,11 +913,14 @@ audio.addEventListener(
 
 
 /* =====================================================
-   YOUTUBE ENDED
+   YOUTUBE PLAYER EVENTS
 ===================================================== */
 
 
 function onYoutubeStateChange(event) {
+
+
+    /* PLAYING */
 
     if (
         event.data ===
@@ -854,6 +933,8 @@ function onYoutubeStateChange(event) {
     }
 
 
+    /* PAUSED */
+
     if (
         event.data ===
         YT.PlayerState.PAUSED
@@ -864,6 +945,8 @@ function onYoutubeStateChange(event) {
 
     }
 
+
+    /* ENDED */
 
     if (
         event.data ===
@@ -899,23 +982,29 @@ searchInput.addEventListener(
 
         const search =
             searchInput.value
-            .toLowerCase()
-            .trim();
+                .toLowerCase()
+                .trim();
 
 
         const filtered =
             currentPlaylist.filter(
-                song =>
+                song => {
 
-                    song.title
-                        .toLowerCase()
-                        .includes(search)
+                    return (
 
-                    ||
+                        song.title
+                            .toLowerCase()
+                            .includes(search)
 
-                    song.artist
-                        .toLowerCase()
-                        .includes(search)
+                        ||
+
+                        song.artist
+                            .toLowerCase()
+                            .includes(search)
+
+                    );
+
+                }
             );
 
 
@@ -927,7 +1016,7 @@ searchInput.addEventListener(
 
 
 /* =====================================================
-   PLAYLISTS
+   PLAYLIST FILTER
 ===================================================== */
 
 
@@ -935,81 +1024,88 @@ document
     .querySelectorAll(
         ".playlistBtn"
     )
-    .forEach(button => {
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            function () {
+            button.addEventListener(
+                "click",
+                function () {
 
-                const playlist =
-                    button.dataset.playlist;
-
-
-                if (
-                    playlist ===
-                    "All"
-                ) {
-
-                    currentPlaylist =
-                        [...songs];
+                    const playlist =
+                        button.dataset.playlist;
 
 
-                    playlistTitle.textContent =
-                        "All Songs";
+                    /* ALL */
+
+                    if (
+                        playlist ===
+                        "All"
+                    ) {
+
+                        currentPlaylist =
+                            [...songs];
+
+                        playlistTitle.textContent =
+                            "All Songs";
+
+                    }
+
+
+                    /* FAVORITES */
+
+                    else if (
+                        playlist ===
+                        "Favorites"
+                    ) {
+
+                        const favorites =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    "favorites"
+                                ) || "[]"
+                            );
+
+
+                        currentPlaylist =
+                            songs.filter(
+                                song =>
+                                    favorites.includes(
+                                        song.id
+                                    )
+                            );
+
+
+                        playlistTitle.textContent =
+                            "Favorites";
+
+                    }
+
+
+                    /* NORMAL PLAYLIST */
+
+                    else {
+
+                        currentPlaylist =
+                            songs.filter(
+                                song =>
+                                    song.playlist ===
+                                    playlist
+                            );
+
+
+                        playlistTitle.textContent =
+                            playlist;
+
+                    }
+
+
+                    showSongs();
 
                 }
+            );
 
-
-                else if (
-                    playlist ===
-                    "Favorites"
-                ) {
-
-                    const favorites =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "favorites"
-                            ) || "[]"
-                        );
-
-
-                    currentPlaylist =
-                        songs.filter(
-                            song =>
-                                favorites.includes(
-                                    song.id
-                                )
-                        );
-
-
-                    playlistTitle.textContent =
-                        "Favorites";
-
-                }
-
-
-                else {
-
-                    currentPlaylist =
-                        songs.filter(
-                            song =>
-                                song.playlist ===
-                                playlist
-                        );
-
-
-                    playlistTitle.textContent =
-                        playlist;
-
-                }
-
-
-                showSongs();
-
-            }
-        );
-
-    });
+        }
+    );
 
 
 
@@ -1080,7 +1176,11 @@ async function downloadSong(id) {
     if (
         !song ||
         song.type !== "mp3"
-    ) return;
+    ) {
+
+        return;
+
+    }
 
 
     try {
@@ -1121,7 +1221,8 @@ async function downloadSong(id) {
 
 
         link.download =
-            song.title + ".mp3";
+            song.title +
+            ".mp3";
 
 
         document.body.appendChild(
@@ -1141,7 +1242,6 @@ async function downloadSong(id) {
 
     }
 
-
     catch (error) {
 
         alert(
@@ -1158,7 +1258,7 @@ async function downloadSong(id) {
 
 
 /* =====================================================
-   TIME FORMAT
+   FORMAT TIME
 ===================================================== */
 
 
@@ -1179,7 +1279,7 @@ function formatTime(seconds) {
         );
 
 
-    const secs =
+    const secondsRemaining =
         Math.floor(
             seconds % 60
         );
@@ -1188,7 +1288,7 @@ function formatTime(seconds) {
     return (
         minutes +
         ":" +
-        secs
+        secondsRemaining
             .toString()
             .padStart(
                 2,
@@ -1228,14 +1328,21 @@ closeYoutube.addEventListener(
 
 
 /* =====================================================
-   START
+   START WEBSITE
 ===================================================== */
 
 
 showSongs();
 
 
-if ("serviceWorker" in navigator) {
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+
+if (
+    "serviceWorker" in navigator
+) {
 
     window.addEventListener(
         "load",
