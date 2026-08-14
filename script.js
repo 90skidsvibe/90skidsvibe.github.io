@@ -1,59 +1,66 @@
 /* =====================================================
    90s KIDS VIBE
-   YOUTUBE MUSIC PLAYER
+   YOUTUBE PLAYER
 ===================================================== */
 
 
-/*
-    =====================================================
-    SONG DATABASE
+/* =====================================================
+   SONG DATABASE
 
-    The first song uses the YouTube Music link you sent.
+   IMPORTANT:
+   youtubeId = YouTube VIDEO ID only.
 
-    You can add more YouTube video IDs below.
-    =====================================================
-*/
+   Example:
+   https://www.youtube.com/watch?v=ABC12345678
 
+   youtubeId:
+   "ABC12345678"
+===================================================== */
 
 const songs = [
 
     {
         id: 1,
-        title: "Song 1",
+        title: "YouTube Song",
         artist: "YouTube Music",
         year: 2010,
+        type: "youtube",
         youtubeId: "Xe6Gc7NtxEs"
     },
 
     {
         id: 2,
-        title: "Song 2",
+        title: "YouTube Song 2",
         artist: "YouTube Music",
-        year: 2010,
+        year: 2011,
+        type: "youtube",
         youtubeId: ""
     },
 
     {
         id: 3,
-        title: "Song 3",
+        title: "YouTube Song 3",
         artist: "YouTube Music",
-        year: 2011,
+        year: 2012,
+        type: "youtube",
         youtubeId: ""
     },
 
     {
         id: 4,
-        title: "Song 4",
+        title: "YouTube Song 4",
         artist: "YouTube Music",
-        year: 2012,
+        year: 2013,
+        type: "youtube",
         youtubeId: ""
     },
 
     {
         id: 5,
-        title: "Song 5",
+        title: "YouTube Song 5",
         artist: "YouTube Music",
-        year: 2013,
+        year: 2014,
+        type: "youtube",
         youtubeId: ""
     }
 
@@ -75,6 +82,8 @@ let shuffle = true;
 let history = [];
 
 let historyPosition = -1;
+
+let skipAttempts = 0;
 
 
 /* =====================================================
@@ -107,7 +116,7 @@ const search =
 
 
 /* =====================================================
-   LOAD YOUTUBE API
+   LOAD YOUTUBE IFRAME API
 ===================================================== */
 
 const tag =
@@ -125,13 +134,38 @@ document.head.appendChild(tag);
 
 window.onYouTubeIframeAPIReady = function () {
 
+    const firstSong =
+        findFirstYouTubeSong();
+
+
+    if (!firstSong) {
+
+        title.textContent =
+            "No YouTube songs";
+
+        artist.textContent =
+            "Add a YouTube video ID";
+
+        return;
+
+    }
+
+
+    currentIndex =
+        songs.findIndex(
+            song =>
+                song.id ===
+                firstSong.id
+        );
+
+
     player =
         new YT.Player(
             "youtubePlayer",
             {
 
                 videoId:
-                    songs[0].youtubeId,
+                    firstSong.youtubeId,
 
                 playerVars: {
 
@@ -146,14 +180,18 @@ window.onYouTubeIframeAPIReady = function () {
                     onReady:
                         function () {
 
-                            playerReady = true;
+                            playerReady =
+                                true;
 
                             loadSongInformation();
 
                         },
 
                     onStateChange:
-                        onPlayerStateChange
+                        onPlayerStateChange,
+
+                    onError:
+                        onPlayerError
 
                 }
 
@@ -161,6 +199,21 @@ window.onYouTubeIframeAPIReady = function () {
         );
 
 };
+
+
+/* =====================================================
+   FIND FIRST YOUTUBE SONG
+===================================================== */
+
+function findFirstYouTubeSong() {
+
+    return songs.find(
+        song =>
+            song.type === "youtube" &&
+            song.youtubeId
+    );
+
+}
 
 
 /* =====================================================
@@ -172,12 +225,15 @@ function loadSongInformation() {
     const song =
         songs[currentIndex];
 
+
     if (!song) {
         return;
     }
 
+
     title.textContent =
         song.title;
+
 
     artist.textContent =
         song.artist +
@@ -200,19 +256,17 @@ function playSong(index) {
         return;
     }
 
+
     const song =
         songs[index];
 
-    /*
-       Ignore songs where no YouTube ID
-       has been entered.
-    */
 
-    if (!song.youtubeId) {
+    if (
+        song.type !== "youtube" ||
+        !song.youtubeId
+    ) {
 
-        alert(
-            "This song does not have a YouTube video ID yet."
-        );
+        nextAvailableSong();
 
         return;
 
@@ -221,6 +275,9 @@ function playSong(index) {
 
     currentIndex =
         index;
+
+
+    skipAttempts = 0;
 
 
     addHistory(index);
@@ -255,7 +312,9 @@ function addHistory(index) {
             historyPosition + 1
         );
 
+
     history.push(index);
+
 
     historyPosition =
         history.length - 1;
@@ -264,7 +323,7 @@ function addHistory(index) {
 
 
 /* =====================================================
-   NEXT RANDOM SONG
+   NEXT SONG
 ===================================================== */
 
 function nextSong() {
@@ -272,6 +331,7 @@ function nextSong() {
     const available =
         songs.filter(
             song =>
+                song.type === "youtube" &&
                 song.youtubeId &&
                 song.id !==
                 songs[currentIndex].id
@@ -282,36 +342,102 @@ function nextSong() {
         available.length === 0
     ) {
 
-        alert(
-            "Add more YouTube video IDs to your playlist."
-        );
+        title.textContent =
+            "No other songs available";
+
+        artist.textContent =
+            "Add more YouTube video IDs";
 
         return;
 
     }
 
 
-    let randomSong;
+    let nextIndex;
 
 
-    randomSong =
-        available[
-            Math.floor(
-                Math.random() *
-                available.length
-            )
-        ];
+    /* -----------------------------------------
+       SHUFFLE MODE
+    ----------------------------------------- */
+
+    if (shuffle) {
+
+        const randomSong =
+            available[
+                Math.floor(
+                    Math.random() *
+                    available.length
+                )
+            ];
 
 
-    const index =
-        songs.findIndex(
-            song =>
-                song.id ===
-                randomSong.id
-        );
+        nextIndex =
+            songs.findIndex(
+                song =>
+                    song.id ===
+                    randomSong.id
+            );
+
+    }
 
 
-    playSong(index);
+    /* -----------------------------------------
+       NORMAL MODE
+    ----------------------------------------- */
+
+    else {
+
+        nextIndex =
+            currentIndex + 1;
+
+
+        if (
+            nextIndex >=
+            songs.length
+        ) {
+
+            nextIndex = 0;
+
+        }
+
+
+        /*
+           Find the next song that has
+           a YouTube ID.
+        */
+
+        let checked = 0;
+
+
+        while (
+            (
+                !songs[nextIndex].youtubeId ||
+                songs[nextIndex].type !==
+                "youtube"
+            ) &&
+            checked <
+            songs.length
+        ) {
+
+            nextIndex++;
+
+            if (
+                nextIndex >=
+                songs.length
+            ) {
+
+                nextIndex = 0;
+
+            }
+
+            checked++;
+
+        }
+
+    }
+
+
+    playSong(nextIndex);
 
 }
 
@@ -344,6 +470,11 @@ function previousSong() {
         songs[currentIndex];
 
 
+    if (!song) {
+        return;
+    }
+
+
     loadSongInformation();
 
 
@@ -363,99 +494,249 @@ function previousSong() {
 
 
 /* =====================================================
-   PLAY / PAUSE
+   HANDLE YOUTUBE ERRORS
 ===================================================== */
 
-playBtn.addEventListener(
-    "click",
-    function () {
+function onPlayerError(event) {
+
+    console.log(
+        "YouTube error:",
+        event.data
+    );
+
+
+    /*
+       Error codes:
+
+       2   = Invalid video ID
+       5   = HTML5 player error
+       100 = Video removed/private
+       101 = Embedding not allowed
+       150 = Embedding not allowed
+       153 = Client/player identification issue
+    */
+
+
+    const errorCodes = [
+        2,
+        5,
+        100,
+        101,
+        150,
+        153
+    ];
+
+
+    if (
+        errorCodes.includes(
+            event.data
+        )
+    ) {
+
+        skipAttempts++;
+
+
+        title.textContent =
+            "Song unavailable";
+
+
+        artist.textContent =
+            "Skipping to another song...";
+
+
+        /*
+           Prevent infinite loops if
+           every song is unavailable.
+        */
 
         if (
-            !playerReady ||
-            !player
+            skipAttempts >
+            songs.length
         ) {
+
+            title.textContent =
+                "No playable YouTube songs";
+
+
+            artist.textContent =
+                "Check your YouTube video IDs";
+
 
             return;
 
         }
 
 
-        const state =
-            player.getPlayerState();
+        setTimeout(
+            function () {
 
+                nextAvailableSong();
 
-        if (
-            state ===
-            YT.PlayerState.PLAYING
-        ) {
-
-            player.pauseVideo();
-
-            playBtn.textContent =
-                "▶";
-
-        }
-
-        else {
-
-            player.playVideo();
-
-            playBtn.textContent =
-                "⏸";
-
-        }
+            },
+            1200
+        );
 
     }
-);
+
+}
+
+
+/* =====================================================
+   FIND NEXT AVAILABLE SONG
+===================================================== */
+
+function nextAvailableSong() {
+
+    const available =
+        songs.filter(
+            song =>
+                song.type === "youtube" &&
+                song.youtubeId &&
+                song.id !==
+                songs[currentIndex].id
+        );
+
+
+    if (
+        available.length === 0
+    ) {
+
+        title.textContent =
+            "No playable songs";
+
+
+        artist.textContent =
+            "Add another YouTube video ID";
+
+
+        return;
+
+    }
+
+
+    nextSong();
+
+}
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+if (playBtn) {
+
+    playBtn.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !playerReady ||
+                !player
+            ) {
+
+                return;
+
+            }
+
+
+            const state =
+                player.getPlayerState();
+
+
+            if (
+                state ===
+                YT.PlayerState.PLAYING
+            ) {
+
+                player.pauseVideo();
+
+
+                playBtn.textContent =
+                    "▶";
+
+            }
+
+            else {
+
+                player.playVideo();
+
+
+                playBtn.textContent =
+                    "⏸";
+
+            }
+
+        }
+    );
+
+}
 
 
 /* =====================================================
    NEXT BUTTON
 ===================================================== */
 
-nextBtn.addEventListener(
-    "click",
-    function () {
+if (nextBtn) {
 
-        nextSong();
+    nextBtn.addEventListener(
+        "click",
+        function () {
 
-    }
-);
+            nextSong();
+
+        }
+    );
+
+}
 
 
 /* =====================================================
    PREVIOUS BUTTON
 ===================================================== */
 
-previousBtn.addEventListener(
-    "click",
-    function () {
+if (previousBtn) {
 
-        previousSong();
+    previousBtn.addEventListener(
+        "click",
+        function () {
 
-    }
-);
+            previousSong();
+
+        }
+    );
+
+}
 
 
 /* =====================================================
-   SHUFFLE
+   SHUFFLE BUTTON
 ===================================================== */
 
-shuffleBtn.addEventListener(
-    "click",
-    function () {
+if (shuffleBtn) {
 
-        shuffle =
-            !shuffle;
+    shuffleBtn.addEventListener(
+        "click",
+        function () {
+
+            shuffle =
+                !shuffle;
 
 
-        shuffleBtn.style.opacity =
-            shuffle
-                ? "1"
-                : "0.5";
+            shuffleBtn.style.opacity =
+                shuffle
+                    ? "1"
+                    : "0.5";
 
-    }
-);
+
+            shuffleBtn.title =
+                shuffle
+                    ? "Shuffle ON"
+                    : "Shuffle OFF";
+
+        }
+    );
+
+}
 
 
 /* =====================================================
@@ -463,6 +744,7 @@ shuffleBtn.addEventListener(
 ===================================================== */
 
 function onPlayerStateChange(event) {
+
 
     if (
         event.data ===
@@ -487,8 +769,8 @@ function onPlayerStateChange(event) {
 
 
     /*
-       When song finishes,
-       automatically choose another.
+       Automatically play another
+       song when current song ends.
     */
 
     if (
@@ -508,6 +790,11 @@ function onPlayerStateChange(event) {
 ===================================================== */
 
 function displaySongs(list) {
+
+    if (!songList) {
+        return;
+    }
+
 
     songList.innerHTML = "";
 
@@ -560,6 +847,7 @@ function displaySongs(list) {
                                     song.id
                             );
 
+
                         playSong(index);
 
                     }
@@ -578,49 +866,54 @@ function displaySongs(list) {
    SEARCH
 ===================================================== */
 
-search.addEventListener(
-    "input",
-    function () {
+if (search) {
 
-        const query =
-            search.value
-                .toLowerCase()
-                .trim();
+    search.addEventListener(
+        "input",
+        function () {
+
+            const query =
+                search.value
+                    .toLowerCase()
+                    .trim();
 
 
-        const filtered =
-            songs.filter(
-                function (song) {
+            const filtered =
+                songs.filter(
+                    function (song) {
 
-                    return (
+                        return (
 
-                        song.title
-                            .toLowerCase()
-                            .includes(query)
+                            song.title
+                                .toLowerCase()
+                                .includes(query)
 
-                        ||
+                            ||
 
-                        song.artist
-                            .toLowerCase()
-                            .includes(query)
+                            song.artist
+                                .toLowerCase()
+                                .includes(query)
 
-                        ||
+                            ||
 
-                        String(song.year)
-                            .includes(query)
+                            String(
+                                song.year
+                            ).includes(query)
 
-                    );
+                        );
 
-                }
+                    }
+                );
+
+
+            displaySongs(
+                filtered
             );
 
+        }
+    );
 
-        displaySongs(
-            filtered
-        );
-
-    }
-);
+}
 
 
 /* =====================================================
