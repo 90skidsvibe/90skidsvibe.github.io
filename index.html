@@ -1,312 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="theme-color"
-        content="#111111"
-    >
-
-    <meta
-        name="description"
-        content="90s Kids Vibe - Music Player"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>90s Kids Vibe</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-</head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding-bottom: 120px;
+        }
+
+        header {
+            padding: 18px;
+            background: #181818;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .player {
+            background: #1c1c1c;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        #youtubePlayer {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        .info {
+            padding: 15px 5px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .artist {
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        button {
+            border: 0;
+            background: #333;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        #playBtn {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            font-size: 20px;
+        }
+
+        .song-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .song {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1c1c1c;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-title {
+            font-weight: bold;
+        }
+
+        .song-artist {
+            color: #999;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .search {
+            width: 100%;
+            padding: 13px;
+            border-radius: 8px;
+            border: 0;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .controls {
+                gap: 7px;
+            }
+
+            button {
+                padding: 10px 12px;
+            }
+
+        }
+    </style>
+</head>
 
 <body>
 
-    <!-- =================================================
-         HEADER
-    ================================================== -->
+<header>
+    🎵 90s Kids Vibe
+</header>
 
-    <header class="header">
+<div class="container">
 
-        <div class="logo">
-            🎵 90s Kids Vibe
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="Search songs..."
+    >
+
+    <div class="player">
+
+        <div id="youtubePlayer"></div>
+
+        <div class="info">
+
+            <div id="songTitle" class="title">
+                Select a song
+            </div>
+
+            <div id="songArtist" class="artist">
+                YouTube Music
+            </div>
+
         </div>
 
-        <div class="searchBox">
+        <div class="controls">
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search songs or artists..."
-                autocomplete="off"
-            >
-
-        </div>
-
-    </header>
-
-
-    <!-- =================================================
-         MAIN
-    ================================================== -->
-
-    <main class="main">
-
-
-        <!-- =============================================
-             PLAYLIST SIDEBAR
-        ============================================== -->
-
-        <aside class="sidebar">
-
-            <h3>Playlists</h3>
-
-            <button
-                class="playlistBtn"
-                data-playlist="All"
-            >
-                🎵 All Songs
+            <button id="previousBtn">
+                ⏮
             </button>
 
-            <button
-                class="playlistBtn"
-                data-playlist="2000-2015 Hits"
-            >
-                🔥 2000–2015 Hits
+            <button id="playBtn">
+                ▶
             </button>
 
-            <button
-                class="playlistBtn"
-                data-playlist="Favorites"
-            >
-                ⭐ Favorites
+            <button id="nextBtn">
+                ⏭
             </button>
 
-        </aside>
-
-
-        <!-- =============================================
-             CONTENT
-        ============================================== -->
-
-        <section class="content">
-
-            <h1 id="playlistTitle">
-                2000–2015 Hits
-            </h1>
-
-
-            <!-- =========================================
-                 YOUTUBE PLAYER
-            ========================================== -->
-
-            <div
-                id="youtubeContainer"
-                class="youtubeContainer"
-                style="display:none;"
-            >
-
-                <div
-                    id="youtubePlayer"
-                    class="youtubePlayer"
-                ></div>
-
-            </div>
-
-
-            <!-- =========================================
-                 SONG LIST
-            ========================================== -->
-
-            <div
-                id="songList"
-                class="songList"
-            >
-
-                <!-- Songs are added by script.js -->
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =================================================
-         BOTTOM MUSIC PLAYER
-    ================================================== -->
-
-    <div class="musicPlayer">
-
-
-        <!-- =============================================
-             SONG INFORMATION
-        ============================================== -->
-
-        <div class="nowPlaying">
-
-            <img
-                id="playerCover"
-                src="https://placehold.co/100x100"
-                alt="Album cover"
-            >
-
-            <div class="nowPlayingInfo">
-
-                <div
-                    id="playerTitle"
-                    class="playerTitle"
-                >
-                    Select a song
-                </div>
-
-                <div
-                    id="playerArtist"
-                    class="playerArtist"
-                >
-                    90s Kids Vibe
-                </div>
-
-                <div
-                    id="playerType"
-                    class="playerType"
-                >
-                    Ready
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =============================================
-             PLAYER CONTROLS
-        ============================================== -->
-
-        <div class="playerControls">
-
-            <div class="buttons">
-
-                <button
-                    id="previousBtn"
-                    title="Previous"
-                    type="button"
-                >
-                    ⏮
-                </button>
-
-
-                <button
-                    id="playBtn"
-                    title="Play / Pause"
-                    type="button"
-                >
-                    ▶
-                </button>
-
-
-                <button
-                    id="nextBtn"
-                    title="Next"
-                    type="button"
-                >
-                    ⏭
-                </button>
-
-
-                <button
-                    id="shuffleBtn"
-                    title="Shuffle"
-                    type="button"
-                >
-                    🔀
-                </button>
-
-
-                <button
-                    id="repeatBtn"
-                    title="Repeat"
-                    type="button"
-                >
-                    🔁
-                </button>
-
-            </div>
-
-
-            <!-- =========================================
-                 PROGRESS
-            ========================================== -->
-
-            <div class="progressArea">
-
-                <span id="currentTime">
-                    0:00
-                </span>
-
-                <input
-                    id="progress"
-                    type="range"
-                    min="0"
-                    max="100"
-                    value="0"
-                >
-
-                <span id="duration">
-                    0:00
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- =============================================
-             VOLUME
-        ============================================== -->
-
-        <div class="volumeArea">
-
-            🔊
-
-            <input
-                id="volume"
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value="1"
-            >
+            <button id="shuffleBtn">
+                🔀
+            </button>
 
         </div>
 
     </div>
 
 
-    <!-- =================================================
-         HIDDEN MP3 AUDIO PLAYER
-    ================================================== -->
+    <h2>🎵 Music</h2>
 
-    <audio
-        id="audio"
-        preload="metadata"
-    ></audio>
+    <div id="songList" class="song-list"></div>
+
+</div>
 
 
-    <!-- =================================================
-         SCRIPT
-    ================================================== -->
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
